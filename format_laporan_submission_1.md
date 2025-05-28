@@ -2,90 +2,28 @@
 
 ## Domain Proyek
 
-Pertanian merupakan tulang punggung perekonomian di banyak negara berkembang, termasuk Indonesia. Namun, sektor ini menghadapi tantangan besar yang mengancam produktivitas dan keberlanjutan, seperti perubahan iklim, degradasi tanah, ketergantungan pada metode tradisional, serta keterbatasan akses terhadap data dan teknologi oleh petani.
+Dalam menghadapi tantangan global seperti perubahan iklim, degradasi tanah, dan pertumbuhan populasi, sektor pertanian dituntut untuk menjadi lebih efisien dan berkelanjutan. Menurut laporan FAO (2021), ketahanan pangan dunia sangat bergantung pada kemampuan petani dalam mengelola sumber daya alam secara optimal dan adaptif. Teknologi seperti Artificial Intelligence (AI) menjadi solusi potensial dalam mendukung pertanian cerdas (smart agriculture) karena mampu memberikan wawasan berbasis data untuk pengambilan keputusan yang lebih tepat.
 
-Salah satu tantangan utama adalah rendahnya kemampuan petani dalam mengambil keputusan berdasarkan kondisi tanah dan iklim yang dinamis. Keputusan terkait waktu tanam, jenis tanaman, serta penggunaan pupuk dan irigasi sering kali dilakukan secara tradisional tanpa dukungan data, yang dapat mengarah pada hasil panen yang tidak optimal atau bahkan gagal panen.
-
-Di sisi lain, perkembangan teknologi Artificial Intelligence (AI) membuka peluang besar untuk melakukan transformasi digital di sektor pertanian. Dengan memanfaatkan data tanah dan iklim serta model AI, petani dapat dibekali dengan wawasan preskriptif yang akurat untuk mendukung pertanian cerdas dan berkelanjutan.
-
-## Permasalahan
-Permasalahan utama dalam proyek ini adalah minimnya informasi yang dapat diakses oleh petani secara real-time terkait kondisi tanah dan iklim, yang berdampak pada:
-
-1. Keputusan tanam yang tidak akurat
-
-2. Overuse atau underuse pupuk dan air
-
-3. Tidak terdeteksinya risiko gagal panen akibat perubahan cuaca ekstrim
-
-4. Rendahnya produktivitas pertanian dan kerugian ekonomi
-
-Jika tidak ditangani, hal ini akan memperburuk krisis pangan, memperbesar kerentanan petani kecil, serta menghambat upaya pembangunan berkelanjutan di sektor pertanian.
-
-##Ide dan Tujuan Proyek
-
-Ide dari proyek ini adalah membangun sistem prediksi dan rekomendasi pertanian berbasis AI dengan menganalisis data parameter tanah dan iklim, seperti:
-
-1. Suhu harian
-
-2. Curah hujan
-
-3. Kelembaban tanah dan udara
-
-4. Durasi penyinaran matahari
-
-5. Kandungan nitrogen, fosfor, dan kalium pada tanah
-
-6. Tekanan udara dan arah angin
-
-Tujuan proyek:
-
-1. Memberikan rekomendasi waktu tanam optimal berdasarkan prediksi cuaca dan kondisi tanah
-
-2. Memberikan saran dosis pupuk sesuai kandungan hara tanah
-
-3. Memberikan peringatan dini terhadap risiko cuaca ekstrem
-
-4. Mendukung petani dalam meningkatkan produktivitas secara berkelanjutan
-
-Sistem ini ditujukan untuk diakses melalui perangkat mobile agar ramah bagi petani lokal, serta dapat bekerja dengan dataset historis maupun sensor lingkungan secara real-time.
-
-## Urgensi Penyelesaian Masalah
-Menurut World Bank (2022), lebih dari 70% petani kecil di negara berkembang tidak memiliki akses terhadap informasi iklim dan tanah secara akurat. Hal ini berkontribusi pada rendahnya produktivitas pertanian dan ketidakstabilan pendapatan petani.
-
-Sementara itu, studi oleh McKinsey & Company (2020) menunjukkan bahwa penerapan teknologi digital, termasuk AI, dalam pertanian dapat mendorong efisiensi dan meningkatkan hasil panen secara global hingga US$500 miliar per tahun pada 2030.
-
-Oleh karena itu, penerapan AI di bidang ini menjadi solusi strategis dan mendesak untuk mengoptimalkan sistem pertanian nasional menuju ketahanan pangan dan kesejahteraan petani.
-
-## Referensi
-- Food and Agriculture Organization. (2023). The State of Food and Agriculture 2023: Leveraging automation in agriculture for transforming agrifood systems. https://www.fao.org
-
-- Zhang, M., Li, M., Wang, X., & Wang, Q. (2020). Application of deep learning algorithms in agricultural image recognition: A review. Computers and Electronics in Agriculture, 175, 105467. https://doi.org/10.1016/j.compag.2020.105467
-
-- World Bank. (2022). Transforming Agriculture for Shared Prosperity and Improved Livelihoods. https://www.worldbank.org
-
-- McKinsey & Company. (2020). Agriculture’s connected future: How technology can yield new growth. https://www.mckinsey.com/industries/agriculture
-
+Masalah utama yang dihadapi petani, khususnya di daerah terpencil, adalah minimnya akses terhadap informasi terkait kondisi tanah dan iklim yang memengaruhi hasil panen. Dengan adanya sistem berbasis AI yang menganalisis parameter seperti tingkat pH tanah, kelembapan, suhu, serta curah hujan, petani dapat diberikan rekomendasi pemupukan, waktu tanam, dan jenis tanaman yang sesuai.
 ## Business Understanding
 
-Pada bagian ini, kamu perlu menjelaskan proses klarifikasi masalah.
+1. Petani kesulitan mendapatkan rekomendasi berbasis data mengenai kesesuaian tanah dan iklim terhadap jenis tanaman.
 
-Bagian laporan ini mencakup:
+2. Keputusan pertanian seringkali berdasarkan intuisi tanpa mempertimbangkan parameter penting seperti pH tanah, suhu, dan kelembapan.
 
+3. Tidak ada sistem terintegrasi yang menyediakan wawasan prediktif bagi petani tentang kondisi pertanian mereka.
 ### Problem Statements
 
-Menjelaskan pernyataan masalah latar belakang:
-- Pernyataan Masalah 1
-- Pernyataan Masalah 2
-- Pernyataan Masalah n
+1. Mengembangkan sistem rekomendasi tanaman berbasis AI dengan memanfaatkan parameter tanah dan iklim.
 
+2. Memberikan wawasan real-time dan prediktif yang membantu petani meningkatkan produktivitas secara berkelanjutan.
+
+3. Meningkatkan efisiensi dalam penggunaan pupuk, air, dan lahan pertanian.
 ### Goals
 
-Menjelaskan tujuan dari pernyataan masalah:
-- Jawaban pernyataan masalah 1
-- Jawaban pernyataan masalah 2
-- Jawaban pernyataan masalah n
+1. Membangun model klasifikasi AI untuk merekomendasikan jenis tanaman berdasarkan data parameter tanah dan iklim.
 
-Semua poin di atas harus diuraikan dengan jelas. Anda bebas menuliskan berapa pernyataan masalah dan juga goals yang diinginkan.
+2. Menerapkan dua model pembanding seperti Random Forest dan XGBoost, serta membandingkan performanya menggunakan metrik akurasi, precision, recall, dan F1-score.
 
 **Rubrik/Kriteria Tambahan (Opsional)**:
 - Menambahkan bagian “Solution Statement” yang menguraikan cara untuk meraih goals. Bagian ini dibuat dengan ketentuan sebagai berikut: 
