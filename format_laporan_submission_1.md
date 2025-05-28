@@ -73,19 +73,17 @@ Hasil: Semua kolom memiliki nilai 0 untuk data kosong.
 - Tujuan: Mengatasi nilai ekstrim yang dapat mempengaruhi kinerja model.
 Pendekatan:
     - Metode IQR digunakan untuk mendeteksi dan cap nilai outlier.
-
+      ```ruby
+      def cap_outliers(df,column):
+      Q1 = df[column].quantile(0.25)
+      Q3 = df[column].quantile(0.75)
+      IQR = Q3 - Q1
+      lower_bound = Q1 - 1.5 * IQR
+      upper_bound = Q3 + 1.5 * IQR
+       df[column] = df[column].clip(lower=lower_bound, upper=upper_bound)
       
-```ruby
-def cap_outliers(df,column):
-    Q1 = df[column].quantile(0.25)
-    Q3 = df[column].quantile(0.75)
-    IQR = Q3 - Q1
-    lower_bound = Q1 - 1.5 * IQR
-    upper_bound = Q3 + 1.5 * IQR
-    df[column] = df[column].clip(lower=lower_bound, upper=upper_bound)
-
-for col in ['Temperature', 'Humidity','Rainfall','PH','Nitrogen', 'Phosphorous', 'Potassium','Carbon']:
-    cap_outliers(data, col)```
+      for col in ['Temperature', 'Humidity','Rainfall','PH','Nitrogen', 'Phosphorous', 'Potassium','Carbon']:
+      cap_outliers(data, col)```
 
 ### 3. Feature Engineering
 - Tujuan: Menyederhanakan fitur kategorik dan menyiapkannya untuk pemodelan.
@@ -93,21 +91,21 @@ for col in ['Temperature', 'Humidity','Rainfall','PH','Nitrogen', 'Phosphorous',
 - Pendekatan:
     - One-hot encoding diterapkan pada fitur kategorik Soil:
 
-```ruby
-data = pd.get_dummies(data, columns=['Soil'], dtype=np.float64)```
+      ```ruby
+      data = pd.get_dummies(data, columns=['Soil'], dtype=np.float64)```
 
 Nama kolom diubah agar lebih mudah dibaca:
 
 
-```ruby
-soil_mapping = {
-    'Soil_Acidic Soil': 'Acidic_Soil',
-    'Soil_Alkaline Soil': 'Alkaline_Soil',
-    'Soil_Loamy Soil': 'Loamy_Soil',
-    'Soil_Neutral Soil': 'Neutral_Soil',
-    'Soil_Peaty Soil': 'Peaty_Soil'
-}
-data.rename(columns=soil_mapping,inplace=True)```
+      ```ruby
+      soil_mapping = {
+          'Soil_Acidic Soil': 'Acidic_Soil',
+          'Soil_Alkaline Soil': 'Alkaline_Soil',
+          'Soil_Loamy Soil': 'Loamy_Soil',
+          'Soil_Neutral Soil': 'Neutral_Soil',
+          'Soil_Peaty Soil': 'Peaty_Soil'
+        }
+        data.rename(columns=soil_mapping,inplace=True)```
 
 ### 4. Data Transformation
 - Tujuan: Menstandarkan skala data agar model dapat belajar secara efisien dan optimal.
@@ -115,23 +113,23 @@ data.rename(columns=soil_mapping,inplace=True)```
 One-Hot Encoding pada fitur kategorikal Soil:
 
 
-```ruby
-data = pd.get_dummies(data, columns=['Soil'], dtype=np.float64)
-Hasil: Kolom Soil diubah menjadi 5 kolom biner (Soil_Acidic Soil, Soil_Alkaline Soil, dll).```
+      ```ruby
+      data = pd.get_dummies(data, columns=['Soil'], dtype=np.float64)
+      Hasil: Kolom Soil diubah menjadi 5 kolom biner (Soil_Acidic Soil, Soil_Alkaline Soil, dll).```
 
 Label Encoding pada target Crop:
 
-```ruby
-label_encoder = LabelEncoder()
-data['crop'] = label_encoder.fit_transform(data['Crop'])
-Hasil: Kolom Crop diubah menjadi nilai numerik (crop).```
+      ```ruby
+      label_encoder = LabelEncoder()
+      data['crop'] = label_encoder.fit_transform(data['Crop'])
+      Hasil: Kolom Crop diubah menjadi nilai numerik (crop).```
 
 Scaling Fitur Numerik menggunakan StandardScaler:
 
-```ruby
-scaler = StandardScaler()
-scaled_features = scaler.fit_transform(data[['Temperature','Humidity',...,'Peaty_Soil']])
-X_scaled = pd.DataFrame(scaled_features, columns=...)```
+      ```ruby
+      scaler = StandardScaler()
+      scaled_features = scaler.fit_transform(data[['Temperature','Humidity',...,'Peaty_Soil']])
+      X_scaled = pd.DataFrame(scaled_features, columns=...)```
 
 ### 5. Splitting Data
 - Tujuan: Membagi data menjadi data pelatihan dan pengujian untuk evaluasi model yang adil.
@@ -140,8 +138,8 @@ X_scaled = pd.DataFrame(scaled_features, columns=...)```
    - Data time series harus dibagi dengan mempertahankan urutan waktu.
    - Data dibagi menjadi training set (80%) dan test set (20%):
 
-```ruby
-X_train, X_test, y_train, y_test = train_test_split(X_scaled, y, test_size=0.2, random_state=42)```
+      ```ruby
+      X_train, X_test, y_train, y_test = train_test_split(X_scaled, y, test_size=0.2, random_state=42)```
 
 - Bukti dimensi data:
 
@@ -163,20 +161,20 @@ Test: 620 sampel (20% dari 3100)
 - Pendekatan:
   - Cek kembali data setelah preprocessing untuk memastikan tidak ada nilai kosong, outlier, atau fitur yang hilang.
 - Model Random Forest dilatih dan diuji:
-```ruby
-model = RandomForestClassifier(random_state=42, n_estimators=500)
-model.fit(X_train, y_train)  # Pelatihan
-y_pred = model.predict(X_test)  # Prediksi```
+    ```ruby
+    model = RandomForestClassifier(random_state=42, n_estimators=500)
+    model.fit(X_train, y_train)  # Pelatihan
+    y_pred = model.predict(X_test)  # Prediksi```
 Akurasi diukur pada test set:
-```ruby
-accuracy = accuracy_score(y_test, y_pred)
-print(f"Accuracy: {accuracy:.2f}")  # Output: Accuracy: 0.96```
+      ```ruby
+      accuracy = accuracy_score(y_test, y_pred)
+      print(f"Accuracy: {accuracy:.2f}")  # Output: Accuracy: 0.96```
 
 Confusion Matrix & Classification Report digunakan untuk evaluasi:
-```ruby
-cm = confusion_matrix(y_test, y_pred)
-sns.heatmap(cm, annot=True, fmt='d')
-print(classification_report(y_test, y_pred))```
+      ```ruby
+      cm = confusion_matrix(y_test, y_pred)
+      sns.heatmap(cm, annot=True, fmt='d')
+      print(classification_report(y_test, y_pred))```
 
 ## Modeling
 Tahapan ini membahas mengenai model machine learning yang digunakan untuk menyelesaikan permasalahan. Anda perlu menjelaskan tahapan dan parameter yang digunakan pada proses pemodelan.
