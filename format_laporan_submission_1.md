@@ -177,28 +177,117 @@ Confusion Matrix & Classification Report digunakan untuk evaluasi:
       print(classification_report(y_test, y_pred))```
 
 ## Modeling
-Tahapan ini membahas mengenai model machine learning yang digunakan untuk menyelesaikan permasalahan. Anda perlu menjelaskan tahapan dan parameter yang digunakan pada proses pemodelan.
+Pada tahap ini, model yang digunakan adalah Random Forest, sebuah algoritma ensemble learning berbasis pohon keputusan. Random Forest dipilih karena kemampuannya menangani data tabular dengan fitur heterogen (numerik dan kategorik), resisten terhadap overfitting, dan kemampuan menangkap hubungan non-linier antar parameter lingkungan. Model ini ideal untuk masalah klasifikasi multi-kelas dengan 31 jenis tanaman.
 
-**Rubrik/Kriteria Tambahan (Opsional)**: 
-- Menjelaskan kelebihan dan kekurangan dari setiap algoritma yang digunakan.
-- Jika menggunakan satu algoritma pada solution statement, lakukan proses improvement terhadap model dengan hyperparameter tuning. **Jelaskan proses improvement yang dilakukan**.
-- Jika menggunakan dua atau lebih algoritma pada solution statement, maka pilih model terbaik sebagai solusi. **Jelaskan mengapa memilih model tersebut sebagai model terbaik**.
+**Arsitektur Model Random Forest:**
+Ensemble of Decision Trees:
+- Dibangun 500 pohon keputusan (n_estimators=500)
+
+- Setiap pohon dilatih pada subset data berbeda (bootstrapping)
+
+- Pembagian fitur acak (max_features="sqrt") untuk diversifikasi
+
+Proses Klasifikasi:
+
+- Setiap pohon memproses fitur input (suhu, kelembaban, dll)
+
+- Dilakukan voting mayoritas dari semua pohon untuk prediksi akhir
+
+- Mengukur importance tiap fitur dalam keputusan klasifikasi
+
+Optimasi Hyperparameter:
+
+- random_state=42 untuk hasil yang reproducible
+
+- Kriteria pemisahan: Gini impurity
+
+- Kedalaman pohon dioptimalkan secara otomatis
+**Implementasi Kode:**
+  
+      ```ruby
+      from sklearn.ensemble import RandomForestClassifier
+      
+      # Inisialisasi model
+      model = RandomForestClassifier(
+          n_estimators=500,
+          random_state=42,
+          criterion='gini'
+      )
+    # Pelatihan model
+    model.fit(X_train, y_train)```
 
 ## Evaluation
-Pada bagian ini anda perlu menyebutkan metrik evaluasi yang digunakan. Lalu anda perlu menjelaskan hasil proyek berdasarkan metrik evaluasi yang digunakan.
 
-Sebagai contoh, Anda memiih kasus klasifikasi dan menggunakan metrik **akurasi, precision, recall, dan F1 score**. Jelaskan mengenai beberapa hal berikut:
-- Penjelasan mengenai metrik yang digunakan
-- Menjelaskan hasil proyek berdasarkan metrik evaluasi
+**Metrik Evaluasi untuk Klasifikasi Multi-Kelas:**
+1. Accuracy (Akurasi):
 
-Ingatlah, metrik evaluasi yang digunakan harus sesuai dengan konteks data, problem statement, dan solusi yang diinginkan.
+- Mengukur proporsi prediksi benar dari semua sampel
 
-**Rubrik/Kriteria Tambahan (Opsional)**: 
-- Menjelaskan formula metrik dan bagaimana metrik tersebut bekerja.
+- Nilai: 0.96
 
-**---Ini adalah bagian akhir laporan---**
+- Interpretasi: Model mencapai akurasi 96%, menunjukkan 96 dari 100 rekomendasi tanaman tepat sesuai dengan kondisi lingkungan
 
-_Catatan:_
-- _Anda dapat menambahkan gambar, kode, atau tabel ke dalam laporan jika diperlukan. Temukan caranya pada contoh dokumen markdown di situs editor [Dillinger](https://dillinger.io/), [Github Guides: Mastering markdown](https://guides.github.com/features/mastering-markdown/), atau sumber lain di internet. Semangat!_
-- Jika terdapat penjelasan yang harus menyertakan code snippet, tuliskan dengan sewajarnya. Tidak perlu menuliskan keseluruhan kode project, cukup bagian yang ingin dijelaskan saja.
+2. Precision (Presisi):
+
+- mengukur ketepatan prediksi untuk setiap kelas tanaman
+
+- Rata-rata Makro: 0.97
+
+- Interpretasi: Dari semua tanaman yang direkomendasikan model, 97% benar-benar sesuai dengan kondisi lahan
+
+3. (Sensitifitas):
+
+- Mengukur kemampuan model menemukan semua kemungkinan tanaman yang cocok
+
+- Rata-rata Makro: 0.97
+
+- Interpretasi: Model dapat mengidentifikasi 97% dari semua opsi tanaman yang sebenarnya cocok untuk kondisi tertentu
+
+4. F1-Score:
+
+- Rata-rata harmonik dari precision dan recall
+
+- Rata-rata Makro: 0.96
+
+- Interpretasi: Keseimbangan antara ketepatan dan kelengkapan rekomendasi sangat baik
+
+##Analisis Performa per Kelas Tanaman
+**Tanaman dengan Performa Terbaik:**
+Rice (Padi):
+
+Precision: 1.00, Recall: 1.00, F1: 1.00
+
+Interpretasi: Rekomendasi padi selalu tepat sesuai kondisi lahan basah
+
+Wheat (Gandum):
+
+Precision: 0.97, Recall: 0.96, F1: 0.96
+
+Interpretasi: Model sangat akurat merekomendasikan gandum untuk lahan kering
+
+Tanaman dengan Tantangan:
+Muskmelon (Melon):
+
+Precision: 0.91, Recall: 0.83, F1: 0.87
+
+Analisis: Kesalahan terjadi karena kemiripan dengan watermelon (semangka)
+
+Solusi: Tambahkan fitur "Kebutuhan Sinar Matahari"
+
+Watermelon (Semangka):
+
+Precision: 0.91, Recall: 0.77, F1: 0.83
+
+Analisis: Terkadang tertukar dengan muskmelon
+
+Solusi: Tingkatkan data parameter kematangan buah
+
+## Referensi 
+- Food and Agriculture Organization. (2023). The State of Food and Agriculture 2023: Leveraging automation in agriculture for   transforming agrifood systems. https://www.fao.org
+
+- Zhang, M., Li, M., Wang, X., & Wang, Q. (2020). Application of deep learning algorithms in agricultural image recognition: A review. Computers and Electronics in Agriculture, 175, 105467. https://doi.org/10.1016/j.compag.2020.105467
+
+- World Bank. (2022). Transforming Agriculture for Shared Prosperity and Improved Livelihoods. https://www.worldbank.org
+
+- McKinsey & Company. (2020). Agriculture’s connected future: How technology can yield new growth. https://www.mckinsey.com/industries/agriculture
 
