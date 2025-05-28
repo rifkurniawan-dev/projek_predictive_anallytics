@@ -28,9 +28,8 @@ Masalah utama yang dihadapi petani, khususnya di daerah terpencil, adalah minimn
 2. Menerapkan dua model pembanding seperti Random Forest dan XGBoost, serta membandingkan performanya menggunakan metrik akurasi, precision, recall, dan F1-score.
 3. Menyediakan dashboard interaktif yang menampilkan prediksi dan insight berbasis data menggunakan Streamlit.
 
-
-
 ## Data Understanding
+
 Dataset yang digunakan berasal dari kaggle (https://www.kaggle.com/datasets/nishchalchandel/crop-recommendation) yang terdiri dari berbagai parameter penting untuk menentukan jenis tanaman yang optimal berdasarkan kondisi lingkungan. 
 
 ### Variabel-variabel pada Kaggle dataset adalah sebagai berikut:
@@ -60,16 +59,22 @@ Dataset yang digunakan berasal dari kaggle (https://www.kaggle.com/datasets/nish
 ## Data Preparation
 ### 1. Handling Missing Values
 - Tujuan: Menghindari nilai kosong yang dapat mengganggu pelatihan model.
-
-Pendekatan:
+  - Pendekatan:
     - Dataset tidak memiliki nilai yang hilang berdasarkan pengecekan berikut:
+
+    
        ```ruby
       data.isnull().sum()```
+       
 Hasil: Semua kolom memiliki nilai 0 untuk data kosong.
+
 ### 2. Handling Outlier
+
 - Tujuan: Mengatasi nilai ekstrim yang dapat mempengaruhi kinerja model.
 Pendekatan:
     - Metode IQR digunakan untuk mendeteksi dan cap nilai outlier.
+
+      
 ```ruby
 def cap_outliers(df,column):
     Q1 = df[column].quantile(0.25)
@@ -81,16 +86,19 @@ def cap_outliers(df,column):
 
 for col in ['Temperature', 'Humidity','Rainfall','PH','Nitrogen', 'Phosphorous', 'Potassium','Carbon']:
     cap_outliers(data, col)```
-   
+
 ### 3. Feature Engineering
 - Tujuan: Menyederhanakan fitur kategorik dan menyiapkannya untuk pemodelan.
 
-Pendekatan:
+- Pendekatan:
     - One-hot encoding diterapkan pada fitur kategorik Soil:
+
 ```ruby
 data = pd.get_dummies(data, columns=['Soil'], dtype=np.float64)```
 
 Nama kolom diubah agar lebih mudah dibaca:
+
+
 ```ruby
 soil_mapping = {
     'Soil_Acidic Soil': 'Acidic_Soil',
@@ -105,21 +113,26 @@ data.rename(columns=soil_mapping,inplace=True)```
 - Tujuan: Menstandarkan skala data agar model dapat belajar secara efisien dan optimal.
 
 One-Hot Encoding pada fitur kategorikal Soil:
+
+
 ```ruby
 data = pd.get_dummies(data, columns=['Soil'], dtype=np.float64)
 Hasil: Kolom Soil diubah menjadi 5 kolom biner (Soil_Acidic Soil, Soil_Alkaline Soil, dll).```
 
 Label Encoding pada target Crop:
+
 ```ruby
 label_encoder = LabelEncoder()
 data['crop'] = label_encoder.fit_transform(data['Crop'])
 Hasil: Kolom Crop diubah menjadi nilai numerik (crop).```
 
 Scaling Fitur Numerik menggunakan StandardScaler:
+
 ```ruby
 scaler = StandardScaler()
 scaled_features = scaler.fit_transform(data[['Temperature','Humidity',...,'Peaty_Soil']])
 X_scaled = pd.DataFrame(scaled_features, columns=...)```
+
 ### 5. Splitting Data
 - Tujuan: Membagi data menjadi data pelatihan dan pengujian untuk evaluasi model yang adil.
 - Pendekatan:
