@@ -2,13 +2,68 @@
 
 ## Domain Proyek
 
-Pada bagian ini, kamu perlu menuliskan latar belakang yang relevan dengan proyek yang diangkat.
+Pertanian merupakan tulang punggung perekonomian di banyak negara berkembang, termasuk Indonesia. Namun, sektor ini menghadapi tantangan besar yang mengancam produktivitas dan keberlanjutan, seperti perubahan iklim, degradasi tanah, ketergantungan pada metode tradisional, serta keterbatasan akses terhadap data dan teknologi oleh petani.
 
-**Rubrik/Kriteria Tambahan (Opsional)**:
-- Jelaskan mengapa dan bagaimana masalah tersebut harus diselesaikan
-- Menyertakan hasil riset terkait atau referensi. Referensi yang diberikan harus berasal dari sumber yang kredibel dan author yang jelas.
-- Format Referensi dapat mengacu pada penulisan sitasi [IEEE](https://journals.ieeeauthorcenter.ieee.org/wp-content/uploads/sites/7/IEEE_Reference_Guide.pdf), [APA](https://www.mendeley.com/guides/apa-citation-guide/) atau secara umum seperti [di sini](https://penerbitdeepublish.com/menulis-buku-membuat-sitasi-dengan-mudah/)
-- Sumber yang bisa digunakan [Scholar](https://scholar.google.com/)
+Salah satu tantangan utama adalah rendahnya kemampuan petani dalam mengambil keputusan berdasarkan kondisi tanah dan iklim yang dinamis. Keputusan terkait waktu tanam, jenis tanaman, serta penggunaan pupuk dan irigasi sering kali dilakukan secara tradisional tanpa dukungan data, yang dapat mengarah pada hasil panen yang tidak optimal atau bahkan gagal panen.
+
+Di sisi lain, perkembangan teknologi Artificial Intelligence (AI) membuka peluang besar untuk melakukan transformasi digital di sektor pertanian. Dengan memanfaatkan data tanah dan iklim serta model AI, petani dapat dibekali dengan wawasan preskriptif yang akurat untuk mendukung pertanian cerdas dan berkelanjutan.
+
+## Permasalahan
+Permasalahan utama dalam proyek ini adalah minimnya informasi yang dapat diakses oleh petani secara real-time terkait kondisi tanah dan iklim, yang berdampak pada:
+
+1. Keputusan tanam yang tidak akurat
+
+2. Overuse atau underuse pupuk dan air
+
+3. Tidak terdeteksinya risiko gagal panen akibat perubahan cuaca ekstrim
+
+4. Rendahnya produktivitas pertanian dan kerugian ekonomi
+
+Jika tidak ditangani, hal ini akan memperburuk krisis pangan, memperbesar kerentanan petani kecil, serta menghambat upaya pembangunan berkelanjutan di sektor pertanian.
+
+##Ide dan Tujuan Proyek
+
+Ide dari proyek ini adalah membangun sistem prediksi dan rekomendasi pertanian berbasis AI dengan menganalisis data parameter tanah dan iklim, seperti:
+
+1. Suhu harian
+
+2. Curah hujan
+
+3. Kelembaban tanah dan udara
+
+4. Durasi penyinaran matahari
+
+5. Kandungan nitrogen, fosfor, dan kalium pada tanah
+
+6. Tekanan udara dan arah angin
+
+Tujuan proyek:
+
+1. Memberikan rekomendasi waktu tanam optimal berdasarkan prediksi cuaca dan kondisi tanah
+
+2. Memberikan saran dosis pupuk sesuai kandungan hara tanah
+
+3. Memberikan peringatan dini terhadap risiko cuaca ekstrem
+
+4. Mendukung petani dalam meningkatkan produktivitas secara berkelanjutan
+
+Sistem ini ditujukan untuk diakses melalui perangkat mobile agar ramah bagi petani lokal, serta dapat bekerja dengan dataset historis maupun sensor lingkungan secara real-time.
+
+## Urgensi Penyelesaian Masalah
+Menurut World Bank (2022), lebih dari 70% petani kecil di negara berkembang tidak memiliki akses terhadap informasi iklim dan tanah secara akurat. Hal ini berkontribusi pada rendahnya produktivitas pertanian dan ketidakstabilan pendapatan petani.
+
+Sementara itu, studi oleh McKinsey & Company (2020) menunjukkan bahwa penerapan teknologi digital, termasuk AI, dalam pertanian dapat mendorong efisiensi dan meningkatkan hasil panen secara global hingga US$500 miliar per tahun pada 2030.
+
+Oleh karena itu, penerapan AI di bidang ini menjadi solusi strategis dan mendesak untuk mengoptimalkan sistem pertanian nasional menuju ketahanan pangan dan kesejahteraan petani.
+
+## Referensi
+- Food and Agriculture Organization. (2023). The State of Food and Agriculture 2023: Leveraging automation in agriculture for transforming agrifood systems. https://www.fao.org
+
+- Zhang, M., Li, M., Wang, X., & Wang, Q. (2020). Application of deep learning algorithms in agricultural image recognition: A review. Computers and Electronics in Agriculture, 175, 105467. https://doi.org/10.1016/j.compag.2020.105467
+
+- World Bank. (2022). Transforming Agriculture for Shared Prosperity and Improved Livelihoods. https://www.worldbank.org
+
+- McKinsey & Company. (2020). Agriculture’s connected future: How technology can yield new growth. https://www.mckinsey.com/industries/agriculture
 
 ## Business Understanding
 
