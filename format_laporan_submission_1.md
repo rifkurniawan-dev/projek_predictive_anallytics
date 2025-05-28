@@ -60,79 +60,110 @@ Dataset yang digunakan berasal dari kaggle (https://www.kaggle.com/datasets/nish
 ## Data Preparation
 ### 1. Handling Missing Values
 - Tujuan: Menghindari nilai kosong yang dapat mengganggu pelatihan model.
+
 Pendekatan:
     - Dataset tidak memiliki nilai yang hilang berdasarkan pengecekan berikut:
        ```ruby
-      data.isnull().sum()   ```
-
+      data.isnull().sum()```
+Hasil: Semua kolom memiliki nilai 0 untuk data kosong.
 ### 2. Handling Outlier
-- Tujuan: Mengatasi nilai yang terlalu ekstrem yang dapat memengaruhi performa model.
-- Pendekatan:
-  - Z-Score: Menghapus data dengan Z-Score di luar ambang batas (misalnya, |Z| > 3).
-  - IQR (Interquartile Range): Menghapus nilai di luar rentang [Q1 = -1.5, Q3 = 1.5].
-- Implementasi Code :
+- Tujuan: Mengatasi nilai ekstrim yang dapat mempengaruhi kinerja model.
+Pendekatan:
+    - Metode IQR digunakan untuk mendeteksi dan cap nilai outlier.
+```ruby
+def cap_outliers(df,column):
+    Q1 = df[column].quantile(0.25)
+    Q3 = df[column].quantile(0.75)
+    IQR = Q3 - Q1
+    lower_bound = Q1 - 1.5 * IQR
+    upper_bound = Q3 + 1.5 * IQR
+    df[column] = df[column].clip(lower=lower_bound, upper=upper_bound)
 
-   ```ruby
-   # Menggunakan IQR untuk menangani outlier
-  Q1 = df['close_XRP'].quantile(0.25)  
-  Q3 = df['close_XRP'].quantile(0.75)
-  IQR = Q3 - Q1
-
-  # Hapus outlier dari XRP
-  df = df[~((df['close_XRP'] < (Q1 - 1.5 * IQR)) | (df['close_XRP'] > (Q3 + 1.5 * IQR)))]
-   ```
-
+for col in ['Temperature', 'Humidity','Rainfall','PH','Nitrogen', 'Phosphorous', 'Potassium','Carbon']:
+    cap_outliers(data, col)```
+   
 ### 3. Feature Engineering
-- Tujuan: Membuat fitur baru yang relevan dan dapat membantu model memahami pola dalam data.
-- Pendekatan:
-  - Technical Indicators: Membuat indikator teknikal seperti moving average (SMA), exponential moving average (EMA), atau relative strength index (RSI).
-  - Lag Features: Menambahkan kolom harga sebelumnya sebagai prediktor.
-- Implementasi dalam project : Moving Average (7 hari)
-  ```ruby
-  df['SMA_7_XRP'] = df['close_XRP'].rolling(window=7).mean()
-  df['SMA_7_USDT'] = df['close_USDT'].rolling(window=7).mean()
-  ```
+- Tujuan: Menyederhanakan fitur kategorik dan menyiapkannya untuk pemodelan.
+
+Pendekatan:
+    - One-hot encoding diterapkan pada fitur kategorik Soil:
+```ruby
+data = pd.get_dummies(data, columns=['Soil'], dtype=np.float64)```
+
+Nama kolom diubah agar lebih mudah dibaca:
+```ruby
+soil_mapping = {
+    'Soil_Acidic Soil': 'Acidic_Soil',
+    'Soil_Alkaline Soil': 'Alkaline_Soil',
+    'Soil_Loamy Soil': 'Loamy_Soil',
+    'Soil_Neutral Soil': 'Neutral_Soil',
+    'Soil_Peaty Soil': 'Peaty_Soil'
+}
+data.rename(columns=soil_mapping,inplace=True)```
 
 ### 4. Data Transformation
-- Tujuan: Mengubah skala data agar lebih sesuai untuk algoritma machine learning.
-- Pendekatan:
-  - Normalisasi Data: Data harga dinormalisasi menggunakan MinMaxScaler agar semua nilai berada dalam rentang [0, 1]. Hal ini membantu model LSTM untuk lebih cepat melakukan konvergensi selama pelatihan.
-  - Min-Max Scaling: Mengubah skala data ke rentang [0, 1], digunakan untuk LSTM.
-  - Standardization: Mengubah data menjadi distribusi dengan mean 0 dan standar deviasi 1.
-- Langkah Implementasi dalam project:
-  ```ruby
-   from sklearn.preprocessing import MinMaxScaler  
-   scaler = MinMaxScaler()
-   df['Close_XRP_Normalized'] = scaler.fit_transform(df[['Close_XRP']])
-   df['Close_USDT_Normalized'] = scaler.fit_transform(df[['Close_USDT']])
-  ```
+- Tujuan: Menstandarkan skala data agar model dapat belajar secara efisien dan optimal.
 
+One-Hot Encoding pada fitur kategorikal Soil:
+```ruby
+data = pd.get_dummies(data, columns=['Soil'], dtype=np.float64)
+Hasil: Kolom Soil diubah menjadi 5 kolom biner (Soil_Acidic Soil, Soil_Alkaline Soil, dll).```
+
+Label Encoding pada target Crop:
+```ruby
+label_encoder = LabelEncoder()
+data['crop'] = label_encoder.fit_transform(data['Crop'])
+Hasil: Kolom Crop diubah menjadi nilai numerik (crop).```
+
+Scaling Fitur Numerik menggunakan StandardScaler:
+```ruby
+scaler = StandardScaler()
+scaled_features = scaler.fit_transform(data[['Temperature','Humidity',...,'Peaty_Soil']])
+X_scaled = pd.DataFrame(scaled_features, columns=...)```
 ### 5. Splitting Data
 - Tujuan: Membagi data menjadi data pelatihan dan pengujian untuk evaluasi model yang adil.
 - Pendekatan:
-   - Data dibagi dalam rasio 80:20 untuk pelatihan dan pengujian.
+
    - Data time series harus dibagi dengan mempertahankan urutan waktu.
-   ```ruby
-   # Split data menjadi train-test
-   train_size = int(len(X_xrp) * 0.8)
-   X_xrp_train, X_xrp_test = X_xrp[:train_size], X_xrp[train_size:]
-   y_xrp_train, y_xrp_test = y_xrp[:train_size], y_xrp[train_size:] 
-   X_usdt_train, X_usdt_test = X_usdt[:train_size], X_usdt[train_size:]
-   y_usdt_train, y_usdt_test = y_usdt[:train_size], y_usdt[train_size:]
-   ```
+   - Data dibagi menjadi training set (80%) dan test set (20%):
+
+```ruby
+X_train, X_test, y_train, y_test = train_test_split(X_scaled, y, test_size=0.2, random_state=42)```
+
+- Bukti dimensi data:
+
+Data awal: (3100, 15)
+
+Setelah scaling: X_scaled.shape = (3100, 13)
+
+Target: y.shape = (3100,)
+
+Hasil splitting:
+
+Training: 2480 sampel (80% dari 3100)
+
+Test: 620 sampel (20% dari 3100)
+
 
 ### 6. Validasi Data
 - Tujuan: Memastikan data bebas dari masalah setelah preprocessing.
 - Pendekatan:
   - Cek kembali data setelah preprocessing untuk memastikan tidak ada nilai kosong, outlier, atau fitur yang hilang.
-- Langkah Implementasi:
-  ```ruby
-  # Periksa apakah ada nilai kosong
-  print(df.isnull().sum())
-  
-  # Periksa dimensi data
-  print(df.shape)
-  ```
+- Model Random Forest dilatih dan diuji:
+```ruby
+model = RandomForestClassifier(random_state=42, n_estimators=500)
+model.fit(X_train, y_train)  # Pelatihan
+y_pred = model.predict(X_test)  # Prediksi```
+Akurasi diukur pada test set:
+```ruby
+accuracy = accuracy_score(y_test, y_pred)
+print(f"Accuracy: {accuracy:.2f}")  # Output: Accuracy: 0.96```
+
+Confusion Matrix & Classification Report digunakan untuk evaluasi:
+```ruby
+cm = confusion_matrix(y_test, y_pred)
+sns.heatmap(cm, annot=True, fmt='d')
+print(classification_report(y_test, y_pred))```
 
 ## Modeling
 Tahapan ini membahas mengenai model machine learning yang digunakan untuk menyelesaikan permasalahan. Anda perlu menjelaskan tahapan dan parameter yang digunakan pada proses pemodelan.
