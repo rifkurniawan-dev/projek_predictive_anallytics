@@ -118,8 +118,8 @@ Random Forest adalah algoritma ensemble learning berbasis pohon keputusan yang m
 Selain prediksi, Random Forest juga memberikan skor pentingnya tiap fitur terhadap hasil klasifikasi.
 **Implementasi Kode:**
   
-      ```ruby
-      from sklearn.ensemble import RandomForestClassifier
+         ```ruby
+         from sklearn.ensemble import RandomForestClassifier
 
          # Inisialisasi model
          model = RandomForestClassifier(
