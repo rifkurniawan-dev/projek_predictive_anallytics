@@ -137,69 +137,39 @@ Selain prediksi, Random Forest juga memberikan skor pentingnya tiap fitur terhad
 
 ## Evaluation
 
-**Metrik Evaluasi untuk Klasifikasi Multi-Kelas:**
-1. Accuracy (Akurasi):
+**Metrik Evaluasi:**
+Evaluasi model dilakukan menggunakan accuracy, precision, recall, F1-score, dan confusion matrix.
 
-- Mengukur proporsi prediksi benar dari semua sampel
+**Hasil Akurasi:**
 
-- Nilai: 0.96
+Model Random Forest mencapai akurasi 96% pada data uji (620 sampel). Ini menunjukkan model mampu mengklasifikasikan jenis tanaman berdasarkan parameter tanah dan iklim dengan sangat baik.
 
-- Interpretasi: Model mencapai akurasi 96%, menunjukkan 96 dari 100 rekomendasi tanaman tepat sesuai dengan kondisi lingkungan
+**Confusion Matrix:**
 
-2. Precision (Presisi):
+Visualisasi confusion matrix menunjukkan bahwa sebagian besar kelas tanaman terprediksi dengan benar. Hampir semua kelas memiliki diagonal yang dominan, menandakan prediksi akurat.
 
-- mengukur ketepatan prediksi untuk setiap kelas tanaman
+**Classification Report:**
 
-- Rata-rata Makro: 0.97
+Berdasarkan hasil classification report:
 
-- Interpretasi: Dari semua tanaman yang direkomendasikan model, 97% benar-benar sesuai dengan kondisi lahan
+* Precision rata-rata (macro avg): 0.97
 
-3. (Sensitifitas):
+* Recall rata-rata (macro avg): 0.97
 
-- Mengukur kemampuan model menemukan semua kemungkinan tanaman yang cocok
+* F1-score rata-rata (macro avg): 0.96
 
-- Rata-rata Makro: 0.97
+**Akurasi total: 0.96**
 
-- Interpretasi: Model dapat mengidentifikasi 97% dari semua opsi tanaman yang sebenarnya cocok untuk kondisi tertentu
+Sebagian besar kelas (jenis tanaman) memiliki nilai F1-score ≥ 0.94, menandakan performa klasifikasi yang konsisten di hampir semua kategori tanaman.
 
-4. F1-Score:
+**Analisis Tambahan:**
 
-- Rata-rata harmonik dari precision dan recall
+Beberapa kelas seperti tanaman ke-21 (index 30) memiliki F1-score sedikit lebih rendah (0.83), menandakan kemungkinan perlu data lebih banyak pada kategori tersebut.
 
-- Rata-rata Makro: 0.96
+Tidak ada tanda overfitting karena model juga menunjukkan performa baik di data uji.
 
-- Interpretasi: Keseimbangan antara ketepatan dan kelengkapan rekomendasi sangat baik
-
-##Analisis Performa per Kelas Tanaman
-**Tanaman dengan Performa Terbaik:**
-Rice (Padi):
-
-Precision: 1.00, Recall: 1.00, F1: 1.00
-
-Interpretasi: Rekomendasi padi selalu tepat sesuai kondisi lahan basah
-
-Wheat (Gandum):
-
-Precision: 0.97, Recall: 0.96, F1: 0.96
-
-Interpretasi: Model sangat akurat merekomendasikan gandum untuk lahan kering
-
-Tanaman dengan Tantangan:
-Muskmelon (Melon):
-
-Precision: 0.91, Recall: 0.83, F1: 0.87
-
-Analisis: Kesalahan terjadi karena kemiripan dengan watermelon (semangka)
-
-Solusi: Tambahkan fitur "Kebutuhan Sinar Matahari"
-
-Watermelon (Semangka):
-
-Precision: 0.91, Recall: 0.77, F1: 0.83
-
-Analisis: Terkadang tertukar dengan muskmelon
-
-Solusi: Tingkatkan data parameter kematangan buah
+**Kesimpulan Evaluasi:**
+Model Random Forest menunjukkan performa yang sangat baik, unggul dalam klasifikasi multi-kelas dengan data agrikultur. Model ini cocok digunakan untuk sistem rekomendasi tanaman yang andal.
 
 ## Referensi 
 - Food and Agriculture Organization. (2023). The State of Food and Agriculture 2023: Leveraging automation in agriculture for   transforming agrifood systems. https://www.fao.org
