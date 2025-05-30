@@ -6,7 +6,7 @@ Dalam menghadapi tantangan global seperti perubahan iklim, degradasi tanah, dan 
 
 Masalah utama yang dihadapi petani, khususnya di daerah terpencil, adalah minimnya akses terhadap informasi terkait kondisi tanah dan iklim yang memengaruhi hasil panen. Dengan adanya sistem berbasis AI yang menganalisis parameter seperti tingkat pH tanah, kelembapan, suhu, serta curah hujan, petani dapat diberikan rekomendasi pemupukan, waktu tanam, dan jenis tanaman yang sesuai.
 ## Business Understanding
-Dalam menghadapi tantangan seperti perubahan iklim, degradasi tanah, dan pertumbuhan populasi, sektor pertanian perlu menjadi lebih efisien dan berkelanjutan. Teknologi Artificial Intelligence (AI) berperan penting dalam mendukung pertanian cerdas dengan memberikan analisis berbasis data. Melalui sistem AI yang memantau parameter seperti pH tanah, kelembapan, suhu, dan curah hujan, petani dapat memperoleh rekomendasi yang akurat terkait pemupukan, waktu tanam, dan jenis tanaman, sehingga hasil panen dapat ditingkatkan secara optimal. 
+Dalam menghadapi tantangan seperti perubahan iklim, degradasi tanah, dan pertumbuhan populasi, sektor pertanian perlu menjadi lebih Sektor pertanian perlu menjadi lebih efisien dan berkelanjutan untuk menghadapi tantangan seperti perubahan iklim dan degradasi tanah. Teknologi AI berperan penting dalam mendukung pertanian cerdas dengan memberikan analisis berbasis data. Melalui sistem AI yang memantau parameter seperti pH tanah, kelembapan, suhu, dan curah hujan, petani dapat memperoleh rekomendasi yang akurat terkait pemupukan, waktu tanam, dan jenis tanaman, sehingga hasil panen dapat ditingkatkan secara optimal.
 ### Problem Statements
 
 1. Petani kesulitan mendapatkan rekomendasi berbasis data mengenai kesesuaian tanah dan iklim terhadap jenis tanaman.
@@ -18,13 +18,13 @@ Dalam menghadapi tantangan seperti perubahan iklim, degradasi tanah, dan pertumb
 
 1. Mengembangkan sistem rekomendasi tanaman berbasis AI dengan memanfaatkan parameter tanah dan iklim.
 
-2. Memberikan wawasan real-time dan prediktif yang membantu petani meningkatkan produktivitas secara berkelanjutan.
+Memberikan wawasan real-time dan prediktif yang membantu petani meningkatkan produktivitas secara berkelanjutan.
 
-3. Meningkatkan efisiensi dalam penggunaan pupuk, air, dan lahan pertanian.
+Meningkatkan efisiensi dalam penggunaan pupuk, air, dan lahan pertanian.
+
 
 ### Solution statements
-1. Membangun model klasifikasi AI untuk merekomendasikan jenis tanaman berdasarkan data parameter tanah dan iklim.
-2. Menerapkan model Random Forest, serta membandingkan performanya menggunakan metrik akurasi, precision, recall, dan F1-score.
+Membangun model klasifikasi AI menggunakan Random Forest untuk merekomendasikan jenis tanaman berdasarkan data parameter tanah dan iklim.
    
 ## Data Understanding
 Berdasarkan dataset yang ada memiliki 3100 baris dan 10 kolom dan 
@@ -51,128 +51,37 @@ Dataset yang digunakan berasal dari kaggle (https://www.kaggle.com/datasets/nish
 
 - Crop: Jenis tanaman yang menjadi target prediksi.
 
-**Rubrik/Kriteria Tambahan (Opsional)**:
-- Melakukan beberapa tahapan yang diperlukan untuk memahami data, contohnya teknik visualisasi data atau exploratory data analysis.
+EDA menunjukkan tidak ada nilai kosong atau data duplikat. Outlier ditangani menggunakan metode IQR, dan visualisasi distribusi fitur menunjukkan sebaran data yang relatif seimbang.
 
 ## Data Preparation
-### 1. Handling Missing Values
-- Tujuan: Menghindari nilai kosong yang dapat mengganggu pelatihan model.
-  - Pendekatan:
-    - Dataset tidak memiliki nilai yang hilang berdasarkan pengecekan berikut:
+**1. Pemeriksaan dan Penanganan Nilai Kosong:**
+Dataset diperiksa menggunakan fungsi ```ruby isnull().sum()``` dan tidak ditemukan nilai kosong di seluruh kolom. Tidak diperlukan imputasi data.
 
-    
-       ```ruby
-      data.isnull().sum()```
-       
-Hasil: Semua kolom memiliki nilai 0 untuk data kosong.
+**2. Penanganan Outlier:**
+Outlier terdeteksi menggunakan metode IQR (Interquartile Range). Nilai-nilai yang berada di luar rentang ```ruby Q1 - 1.5IQR dan Q3 + 1.5IQR``` dianggap sebagai outlier. Untuk menjaga integritas data, dilakukan teknik clipping agar nilai ekstrim tetap dalam batas wajar tanpa menghapus data.
 
-### 2. Handling Outlier
+**3. Encoding Data Kategorikal:**
 
-- Tujuan: Mengatasi nilai ekstrim yang dapat mempengaruhi kinerja model.
-Pendekatan:
-    - Metode IQR digunakan untuk mendeteksi dan cap nilai outlier.
-      ```ruby
-      def cap_outliers(df,column):
-      Q1 = df[column].quantile(0.25)
-      Q3 = df[column].quantile(0.75)
-      IQR = Q3 - Q1
-      lower_bound = Q1 - 1.5 * IQR
-      upper_bound = Q3 + 1.5 * IQR
-       df[column] = df[column].clip(lower=lower_bound, upper=upper_bound)
-      
-      for col in ['Temperature', 'Humidity','Rainfall','PH','Nitrogen', 'Phosphorous', 'Potassium','Carbon']:
-      cap_outliers(data, col)```
+Fitur ```ruby Soil``` dikonversi menjadi variabel dummy menggunakan teknik One-Hot Encoding karena bersifat kategorikal nominal.
 
-### 3. Feature Engineering
-- Tujuan: Menyederhanakan fitur kategorik dan menyiapkannya untuk pemodelan.
+Target ```ruby Crop``` dikodekan menggunakan Label Encoding agar bisa diproses oleh algoritma klasifikasi.
 
-- Pendekatan:
-    - One-hot encoding diterapkan pada fitur kategorik Soil:
+**4. Normalisasi Data:**
+Seluruh fitur numerik (termasuk hasil encoding) dinormalisasi menggunakan StandardScaler dari Scikit-Learn untuk menyamakan skala dan mempercepat konvergensi model pembelajaran mesin.
 
-      ```ruby
-      data = pd.get_dummies(data, columns=['Soil'], dtype=np.float64)```
+**5. Pembagian Dataset:** 
+Data dibagi menjadi dua subset:
 
-Nama kolom diubah agar lebih mudah dibaca:
+* Training set (80%): Digunakan untuk melatih model.
 
+* Testing set (20%): Digunakan untuk mengevaluasi performa model.
+Pemisahan dilakukan dengan ```ruby train_test_split``` dengan ```ruuby random_state=42``` untuk replikasi hasil.
 
-      ```ruby
-      soil_mapping = {
-          'Soil_Acidic Soil': 'Acidic_Soil',
-          'Soil_Alkaline Soil': 'Alkaline_Soil',
-          'Soil_Loamy Soil': 'Loamy_Soil',
-          'Soil_Neutral Soil': 'Neutral_Soil',
-          'Soil_Peaty Soil': 'Peaty_Soil'
-        }
-        data.rename(columns=soil_mapping,inplace=True)```
+**6. Pemeriksaan Korelasi dan Multikolinearitas (Opsional):** 
+Matriks korelasi divisualisasikan untuk memahami hubungan antar fitur. Tidak ditemukan korelasi multikolinear yang mengganggu model.
 
-### 4. Data Transformation
-- Tujuan: Menstandarkan skala data agar model dapat belajar secara efisien dan optimal.
-
-One-Hot Encoding pada fitur kategorikal Soil:
-
-
-      ```ruby
-      data = pd.get_dummies(data, columns=['Soil'], dtype=np.float64)
-      Hasil: Kolom Soil diubah menjadi 5 kolom biner (Soil_Acidic Soil, Soil_Alkaline Soil, dll).```
-
-Label Encoding pada target Crop:
-
-      ```ruby
-      label_encoder = LabelEncoder()
-      data['crop'] = label_encoder.fit_transform(data['Crop'])
-      Hasil: Kolom Crop diubah menjadi nilai numerik (crop).```
-
-Scaling Fitur Numerik menggunakan StandardScaler:
-
-      ```ruby
-      scaler = StandardScaler()
-      scaled_features = scaler.fit_transform(data[['Temperature','Humidity',...,'Peaty_Soil']])
-      X_scaled = pd.DataFrame(scaled_features, columns=...)```
-
-### 5. Splitting Data
-- Tujuan: Membagi data menjadi data pelatihan dan pengujian untuk evaluasi model yang adil.
-- Pendekatan:
-
-   - Data time series harus dibagi dengan mempertahankan urutan waktu.
-   - Data dibagi menjadi training set (80%) dan test set (20%):
-
-      ```ruby
-      X_train, X_test, y_train, y_test = train_test_split(X_scaled, y, test_size=0.2, random_state=42)```
-
-- Bukti dimensi data:
-
-Data awal: (3100, 15)
-
-Setelah scaling: X_scaled.shape = (3100, 13)
-
-Target: y.shape = (3100,)
-
-Hasil splitting:
-
-Training: 2480 sampel (80% dari 3100)
-
-Test: 620 sampel (20% dari 3100)
-
-
-### 6. Validasi Data
-- Tujuan: Memastikan data bebas dari masalah setelah preprocessing.
-- Pendekatan:
-  - Cek kembali data setelah preprocessing untuk memastikan tidak ada nilai kosong, outlier, atau fitur yang hilang.
-- Model Random Forest dilatih dan diuji:
-    ```ruby
-    model = RandomForestClassifier(random_state=42, n_estimators=500)
-    model.fit(X_train, y_train)  # Pelatihan
-    y_pred = model.predict(X_test)  # Prediksi```
-Akurasi diukur pada test set:
-      ```ruby
-      accuracy = accuracy_score(y_test, y_pred)
-      print(f"Accuracy: {accuracy:.2f}")  # Output: Accuracy: 0.96```
-
-Confusion Matrix & Classification Report digunakan untuk evaluasi:
-      ```ruby
-      cm = confusion_matrix(y_test, y_pred)
-      sns.heatmap(cm, annot=True, fmt='d')
-      print(classification_report(y_test, y_pred))```
+**7. Finalisasi Dataset:**  
+Dataset yang telah melalui semua tahap di atas disimpan sebagai ```ruby X_train, X_test, y_train, dan y_test``` , dan siap digunakan untuk proses pelatihan model machine learning.
 
 ## Modeling
 Pada tahap ini, model yang digunakan adalah Random Forest, sebuah algoritma ensemble learning berbasis pohon keputusan. Random Forest dipilih karena kemampuannya menangani data tabular dengan fitur heterogen (numerik dan kategorik), resisten terhadap overfitting, dan kemampuan menangkap hubungan non-linier antar parameter lingkungan. Model ini ideal untuk masalah klasifikasi multi-kelas dengan 31 jenis tanaman.
