@@ -6,8 +6,7 @@ Dalam menghadapi tantangan global seperti perubahan iklim, degradasi tanah, dan 
 
 Masalah utama yang dihadapi petani, khususnya di daerah terpencil, adalah minimnya akses terhadap informasi terkait kondisi tanah dan iklim yang memengaruhi hasil panen. Dengan adanya sistem berbasis AI yang menganalisis parameter seperti tingkat pH tanah, kelembapan, suhu, serta curah hujan, petani dapat diberikan rekomendasi pemupukan, waktu tanam, dan jenis tanaman yang sesuai.
 ## Business Understanding
-
-
+Dalam menghadapi tantangan seperti perubahan iklim, degradasi tanah, dan pertumbuhan populasi, sektor pertanian perlu menjadi lebih efisien dan berkelanjutan. Teknologi Artificial Intelligence (AI) berperan penting dalam mendukung pertanian cerdas dengan memberikan analisis berbasis data. Melalui sistem AI yang memantau parameter seperti pH tanah, kelembapan, suhu, dan curah hujan, petani dapat memperoleh rekomendasi yang akurat terkait pemupukan, waktu tanam, dan jenis tanaman, sehingga hasil panen dapat ditingkatkan secara optimal. 
 ### Problem Statements
 
 1. Petani kesulitan mendapatkan rekomendasi berbasis data mengenai kesesuaian tanah dan iklim terhadap jenis tanaman.
@@ -25,11 +24,10 @@ Masalah utama yang dihadapi petani, khususnya di daerah terpencil, adalah minimn
 
 ### Solution statements
 1. Membangun model klasifikasi AI untuk merekomendasikan jenis tanaman berdasarkan data parameter tanah dan iklim.
-2. Menerapkan dua model pembanding seperti Random Forest dan XGBoost, serta membandingkan performanya menggunakan metrik akurasi, precision, recall, dan F1-score.
-3. Menyediakan dashboard interaktif yang menampilkan prediksi dan insight berbasis data menggunakan Streamlit.
-
+2. Menerapkan model Random Forest, serta membandingkan performanya menggunakan metrik akurasi, precision, recall, dan F1-score.
+   
 ## Data Understanding
-
+Berdasarkan dataset yang ada memiliki 3100 baris dan 10 kolom dan 
 Dataset yang digunakan berasal dari kaggle (https://www.kaggle.com/datasets/nishchalchandel/crop-recommendation) yang terdiri dari berbagai parameter penting untuk menentukan jenis tanaman yang optimal berdasarkan kondisi lingkungan. 
 
 ### Variabel-variabel pada Kaggle dataset adalah sebagai berikut:
