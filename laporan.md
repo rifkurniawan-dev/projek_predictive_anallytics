@@ -16,9 +16,9 @@ Dalam menghadapi tantangan seperti perubahan iklim, degradasi tanah, dan pertumb
 3. Tidak ada sistem terintegrasi yang menyediakan wawasan prediktif bagi petani tentang kondisi pertanian mereka.
 ### Goals
 
-1. Mengembangkan sistem rekomendasi tanaman berbasis AI dengan memanfaatkan parameter tanah dan iklim.
+* Mengembangkan sistem rekomendasi tanaman berbasis AI dengan memanfaatkan parameter tanah dan iklim.
 
-Memberikan wawasan real-time dan prediktif yang membantu petani meningkatkan produktivitas secara berkelanjutan.
+* Memberikan wawasan real-time dan prediktif yang membantu petani meningkatkan produktivitas secara berkelanjutan.
 
 Meningkatkan efisiensi dalam penggunaan pupuk, air, dan lahan pertanian.
 
@@ -84,44 +84,55 @@ Matriks korelasi divisualisasikan untuk memahami hubungan antar fitur. Tidak dit
 Dataset yang telah melalui semua tahap di atas disimpan sebagai ```ruby X_train, X_test, y_train, dan y_test``` , dan siap digunakan untuk proses pelatihan model machine learning.
 
 ## Modeling
-Pada tahap ini, model yang digunakan adalah Random Forest, sebuah algoritma ensemble learning berbasis pohon keputusan. Random Forest dipilih karena kemampuannya menangani data tabular dengan fitur heterogen (numerik dan kategorik), resisten terhadap overfitting, dan kemampuan menangkap hubungan non-linier antar parameter lingkungan. Model ini ideal untuk masalah klasifikasi multi-kelas dengan 31 jenis tanaman.
+**Model yang Digunakan:** Random Forest Classifier
 
-**Arsitektur Model Random Forest:**
-Ensemble of Decision Trees:
-- Dibangun 500 pohon keputusan (n_estimators=500)
+**Alasan Pemilihan:**
+Random Forest adalah algoritma ensemble learning berbasis pohon keputusan yang menggabungkan banyak pohon (trees) untuk menghasilkan prediksi yang lebih stabil dan akurat. Algoritma ini sangat sesuai untuk data tabular dengan fitur numerik maupun kategorikal, serta memiliki keunggulan dalam:
 
-- Setiap pohon dilatih pada subset data berbeda (bootstrapping)
+* Menangani klasifikasi multi-kelas secara efisien (dalam kasus ini, 31 jenis tanaman).
 
-- Pembagian fitur acak (max_features="sqrt") untuk diversifikasi
+* Tahan terhadap overfitting karena teknik bootstrapping dan pembagian fitur acak.
 
-Proses Klasifikasi:
+* Menangkap hubungan non-linear antar fitur lingkungan seperti pH, curah hujan, dan unsur hara.
 
-- Setiap pohon memproses fitur input (suhu, kelembaban, dll)
+**Arsitektur Model:**
 
-- Dilakukan voting mayoritas dari semua pohon untuk prediksi akhir
+* Jumlah Pohon (n_estimators):** 500 pohon keputusan dibangun untuk memperkuat kestabilan prediksi.
 
-- Mengukur importance tiap fitur dalam keputusan klasifikasi
+* **Bootstrapping:** Setiap pohon dilatih pada subset data acak dengan pengembalian.
 
-Optimasi Hyperparameter:
+* **Pembagian Fitur Acak (max_features='sqrt'):** Untuk memastikan keragaman antar pohon.
 
-- random_state=42 untuk hasil yang reproducible
+**1.** **Kriteria Pemisahan:** Gini impurity.
 
-- Kriteria pemisahan: Gini impurity
+**2** **Pengaturan Reproducibility:** random_state=42.
 
-- Kedalaman pohon dioptimalkan secara otomatis
+**Proses Klasifikasi:**
+
+* Setiap pohon memproses input fitur lingkungan (pH, N, P, suhu, kelembapan, dll).
+
+* Hasil klasifikasi dari semua pohon dikombinasikan melalui voting mayoritas.
+
+* Prediksi akhir diberikan berdasarkan hasil voting terbanyak.
+
+Selain prediksi, Random Forest juga memberikan skor pentingnya tiap fitur terhadap hasil klasifikasi.
 **Implementasi Kode:**
   
       ```ruby
       from sklearn.ensemble import RandomForestClassifier
-      
-      # Inisialisasi model
-      model = RandomForestClassifier(
-          n_estimators=500,
-          random_state=42,
-          criterion='gini'
-      )
-    # Pelatihan model
-    model.fit(X_train, y_train)```
+
+         # Inisialisasi model
+         model = RandomForestClassifier(
+             n_estimators=500,
+             random_state=42,
+             criterion='gini'
+         )
+         
+         # Pelatihan model
+         model.fit(X_train, y_train)
+         
+         # Prediksi
+         y_pred = model.predict(X_test)```
 
 ## Evaluation
 
