@@ -2,34 +2,34 @@
 
 ## Domain Proyek
 
-Dalam menghadapi tantangan global seperti perubahan iklim, degradasi tanah, dan pertumbuhan populasi, sektor pertanian dituntut untuk menjadi lebih efisien dan berkelanjutan. Menurut laporan FAO (2021), ketahanan pangan dunia sangat bergantung pada kemampuan petani dalam mengelola sumber daya alam secara optimal dan adaptif. Teknologi seperti Artificial Intelligence (AI) menjadi solusi potensial dalam mendukung pertanian cerdas (smart agriculture) karena mampu memberikan wawasan berbasis data untuk pengambilan keputusan yang lebih tepat.
+Dalam menghadapi tantangan global seperti perubahan iklim, degradasi tanah, dan pertumbuhan populasi, sektor pertanian dituntut untuk menjadi lebih efisien dan berkelanjutan. Menurut laporan FAO (2021), ketahanan pangan dunia sangat bergantung pada kemampuan petani dalam mengelola sumber daya alam secara optimal dan adaptif. Teknologi seperti Artificial Intelligence (AI) menjadi solusi potensial dalam mendukung pertanian cerdas (smart farming) karena mampu memberikan wawasan berbasis data untuk pengambilan keputusan yang lebih tepat.
 
-Masalah utama yang dihadapi petani, khususnya di daerah terpencil, adalah minimnya akses terhadap informasi terkait kondisi tanah dan iklim yang memengaruhi hasil panen. Dengan adanya sistem berbasis AI yang menganalisis parameter seperti tingkat pH tanah, kelembapan, suhu, serta curah hujan, petani dapat diberikan rekomendasi pemupukan, waktu tanam, dan jenis tanaman yang sesuai.
+Permasalahan utama yang dihadapi petani, khususnya di daerah terpencil, adalah minimnya akses terhadap informasi terkait kondisi tanah dan iklim yang mempengaruhi hasil panen. Dengan adanya sistem berbasis AI yang menganalisis parameter seperti tingkat pH tanah, kelembapan, suhu, serta curah hujan, petani dapat diberikan rekomendasi pemupukan, waktu tanam, dan jenis tanaman yang sesuai.
+
 ## Business Understanding
-Dalam menghadapi tantangan seperti perubahan iklim, degradasi tanah, dan pertumbuhan populasi, sektor pertanian perlu menjadi lebih Sektor pertanian perlu menjadi lebih efisien dan berkelanjutan untuk menghadapi tantangan seperti perubahan iklim dan degradasi tanah. Teknologi AI berperan penting dalam mendukung pertanian cerdas dengan memberikan analisis berbasis data. Melalui sistem AI yang memantau parameter seperti pH tanah, kelembapan, suhu, dan curah hujan, petani dapat memperoleh rekomendasi yang akurat terkait pemupukan, waktu tanam, dan jenis tanaman, sehingga hasil panen dapat ditingkatkan secara optimal.
+Sektor pertanian perlu menjadi lebih efisien dan berkelanjutan untuk menghadapi tantangan seperti perubahan iklim dan degradasi tanah. Teknologi AI berperan penting dalam mendukung pertanian cerdas dengan memberikan analisis berbasis data. Melalui sistem AI yang memanfaatkan parameter seperti pH tanah, kelembapan, suhu, dan curah hujan, petani dapat memperoleh rekomendasi yang akurat terkait pemupukan, waktu tanam, dan jenis tanaman, sehingga hasil panen dapat ditingkatkan secara optimal.
+
 ### Problem Statements
 
-1. Petani kesulitan mendapatkan rekomendasi berbasis data mengenai kesesuaian tanah dan iklim terhadap jenis tanaman.
+1. Petani kesulitan mendapatkan rekomendasi berdasarkan data mengenai kesesuaian tanah dan iklim terhadap jenis tanaman.
 
-2. Keputusan pertanian seringkali berdasarkan intuisi tanpa mempertimbangkan parameter penting seperti pH tanah, suhu, dan kelembapan.
+2. Keputusan pertanian seringkali berdasarkan intuisi tanpa mempertimbangkan parameter penting seperti pH tanah, suhu, dan kelembaban.
 
 3. Tidak ada sistem terintegrasi yang menyediakan wawasan prediktif bagi petani tentang kondisi pertanian mereka.
 ### Goals
 
-* Mengembangkan sistem rekomendasi tanaman berbasis AI dengan memanfaatkan parameter tanah dan iklim.
+* Membangun sistem rekomendasi tanaman berbasis AI dengan memanfaatkan parameter tanah dan iklim.
 
 * Memberikan wawasan real-time dan prediktif yang membantu petani meningkatkan produktivitas secara berkelanjutan.
 
-Meningkatkan efisiensi dalam penggunaan pupuk, air, dan lahan pertanian.
-
+* Meningkatkan efisiensi dalam penggunaan pupuk, air, dan lahan pertanian.
 
 ### Solution statements
 * Membangun model klasifikasi menggunakan algoritma Random Forest.
 
-* Melakukan evaluasi performa model menggunakan metrik akurasi, precision, recall, dan F1-score.
+* Melakukan evaluasi kinerja model menggunakan metrik akurasi, presisi, recall, dan F1-score.
 ## Data Understanding
-Berdasarkan dataset yang ada memiliki 3100 baris dan 10 kolom dan 
-Dataset yang digunakan berasal dari kaggle (https://www.kaggle.com/datasets/nishchalchandel/crop-recommendation) yang terdiri dari berbagai parameter penting untuk menentukan jenis tanaman yang optimal berdasarkan kondisi lingkungan. 
+Dataset yang digunakan berasal dari Kaggle (https://www.kaggle.com/datasets/nishchalchandel/crop-recommendation), terdiri dari 3100 baris dan 10 kolom. Dataset ini mencakup berbagai parameter penting untuk menentukan jenis tanaman yang optimal berdasarkan kondisi lingkungan.
 
 ### Variabel-variabel pada Kaggle dataset adalah sebagai berikut:
 - Temperature: Suhu udara (°C) yang memengaruhi pertumbuhan tanaman.
