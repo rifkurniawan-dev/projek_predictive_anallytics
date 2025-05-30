@@ -24,8 +24,9 @@ Meningkatkan efisiensi dalam penggunaan pupuk, air, dan lahan pertanian.
 
 
 ### Solution statements
-Membangun model klasifikasi AI menggunakan Random Forest untuk merekomendasikan jenis tanaman berdasarkan data parameter tanah dan iklim.
-   
+* Membangun model klasifikasi menggunakan algoritma Random Forest.
+
+* Melakukan evaluasi performa model menggunakan metrik akurasi, precision, recall, dan F1-score.
 ## Data Understanding
 Berdasarkan dataset yang ada memiliki 3100 baris dan 10 kolom dan 
 Dataset yang digunakan berasal dari kaggle (https://www.kaggle.com/datasets/nishchalchandel/crop-recommendation) yang terdiri dari berbagai parameter penting untuk menentukan jenis tanaman yang optimal berdasarkan kondisi lingkungan. 
