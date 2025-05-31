@@ -55,20 +55,17 @@ Dataset yang digunakan berasal dari Kaggle (https://www.kaggle.com/datasets/nish
 EDA menunjukkan tidak ada nilai kosong atau data duplikat. Outlier ditangani menggunakan metode IQR, dan visualisasi distribusi fitur menunjukkan sebaran data yang relatif seimbang.
 
 ## Data Preparation
-**1. Pemeriksaan dan Penanganan Nilai Kosong:**
-Dataset diperiksa menggunakan fungsi ```ruby isnull().sum()``` dan tidak ditemukan nilai kosong di seluruh kolom. Tidak diperlukan imputasi data.
+**1. Encoding Data Kategorikal:**
+* Fitur ```Soil``` dikonversi menjadi variabel dummy menggunakan One-Hot Encoding karena termasuk kategori nominal.
+Target ```Crop``` dikodekan menggunakan Label Encoding agar dapat digunakan oleh model klasifikasi.
 
 **2. Penanganan Outlier:**
-Outlier terdeteksi menggunakan metode IQR (Interquartile Range). Nilai-nilai yang berada di luar rentang ```ruby Q1 - 1.5IQR dan Q3 + 1.5IQR``` dianggap sebagai outlier. Untuk menjaga integritas data, dilakukan teknik clipping agar nilai ekstrim tetap dalam batas wajar tanpa menghapus data.
+Outlier terdeteksi menggunakan metode IQR (Interquartile Range). Nilai-nilai yang berada di luar rentang ```Q1 - 1.5IQR dan Q3 + 1.5IQR``` dianggap sebagai outlier. Untuk menjaga integritas data, dilakukan teknik clipping agar nilai ekstrim tetap dalam batas wajar tanpa menghapus data.
 
-**3. Encoding Data Kategorikal:**
-
-Fitur ```ruby Soil``` dikonversi menjadi variabel dummy menggunakan teknik One-Hot Encoding karena bersifat kategorikal nominal.
-
-Target ```ruby Crop``` dikodekan menggunakan Label Encoding agar bisa diproses oleh algoritma klasifikasi.
-
-**4. Normalisasi Data:**
+**3. Normalisasi Data:**
 Seluruh fitur numerik (termasuk hasil encoding) dinormalisasi menggunakan StandardScaler dari Scikit-Learn untuk menyamakan skala dan mempercepat konvergensi model pembelajaran mesin.
+**4. Pemeriksaan Missing Value dan Duplikasi:**
+Dataset diperiksa dengan ```.isnull().sum()``` dan ```.duplicated()``` untuk memastikan tidak ada data kosong atau duplikat.
 
 **5. Pembagian Dataset:** 
 Data dibagi menjadi dua subset:
@@ -76,13 +73,13 @@ Data dibagi menjadi dua subset:
 * Training set (80%): Digunakan untuk melatih model.
 
 * Testing set (20%): Digunakan untuk mengevaluasi performa model.
-Pemisahan dilakukan dengan ```ruby train_test_split``` dengan ```ruuby random_state=42``` untuk replikasi hasil.
+Pemisahan dilakukan dengan ```train_test_split``` dengan ```ruuby random_state=42``` untuk replikasi hasil.
 
 **6. Pemeriksaan Korelasi dan Multikolinearitas (Opsional):** 
 Matriks korelasi divisualisasikan untuk memahami hubungan antar fitur. Tidak ditemukan korelasi multikolinear yang mengganggu model.
 
 **7. Finalisasi Dataset:**  
-Dataset yang telah melalui semua tahap di atas disimpan sebagai ```ruby X_train, X_test, y_train, dan y_test``` , dan siap digunakan untuk proses pelatihan model machine learning.
+Dataset yang telah melalui semua tahap di atas disimpan sebagai ```X_train```, ```X_test```, ```y_train```, dan ```y_test``` , dan siap digunakan untuk proses pelatihan model machine learning.
 
 ## Modeling
 **Model yang Digunakan:** Random Forest Classifier
