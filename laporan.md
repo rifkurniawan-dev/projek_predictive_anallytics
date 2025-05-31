@@ -75,7 +75,7 @@ Data dibagi menjadi dua subset:
 * Training set (80%): Digunakan untuk melatih model.
 
 * Testing set (20%): Digunakan untuk mengevaluasi performa model.
-Pemisahan dilakukan dengan ```train_test_split``` dengan ```ruuby random_state=42``` untuk replikasi hasil.
+Pemisahan dilakukan dengan ```train_test_split``` dengan ```random_state=42``` untuk replikasi hasil.
 
 **6. Pemeriksaan Korelasi dan Multikolinearitas (Opsional):** 
 Matriks korelasi divisualisasikan untuk memahami hubungan antar fitur. Tidak ditemukan korelasi multikolinear yang mengganggu model.
