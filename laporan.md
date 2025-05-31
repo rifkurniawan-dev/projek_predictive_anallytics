@@ -59,6 +59,7 @@ EDA menunjukkan tidak ada nilai kosong atau data duplikat. Outlier ditangani men
 * Fitur ```Soil``` dikonversi menjadi variabel dummy menggunakan One-Hot Encoding karena termasuk kategori nominal.
 Setelah encoding, nama kolom hasil One-Hot Encoding diubah (rename) untuk menyederhanakan dan memperjelas nama fitur, misalnya ```Soil_Acidic Soil``` menjadi ```Acidic_Soil```.
 Selain itu, target ```Crop``` juga dikodekan menggunakan Label Encoding agar bisa diproses oleh algoritma klasifikasi.
+
 **2. Penanganan Outlier:**
 Outlier terdeteksi menggunakan metode IQR (Interquartile Range). Nilai-nilai yang berada di luar rentang ```Q1 - 1.5IQR dan Q3 + 1.5IQR``` dianggap sebagai outlier. Untuk menjaga integritas data, dilakukan teknik *clipping* agar nilai ekstrim tetap dalam batas wajar tanpa menghapus data.
 
@@ -117,7 +118,7 @@ Random Forest adalah algoritma ensemble learning berbasis pohon keputusan yang m
 Selain prediksi, Random Forest juga memberikan skor pentingnya tiap fitur terhadap hasil klasifikasi.
 **Implementasi Kode:**
   
-         ```ruby
+         ```
          from sklearn.ensemble import RandomForestClassifier
 
          # Inisialisasi model
