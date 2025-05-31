@@ -57,13 +57,13 @@ EDA menunjukkan tidak ada nilai kosong atau data duplikat. Outlier ditangani men
 ## Data Preparation
 **1. Encoding Data Kategorikal:**
 * Fitur ```Soil``` dikonversi menjadi variabel dummy menggunakan One-Hot Encoding karena termasuk kategori nominal.
-* Target ```Crop``` dikodekan menggunakan Label Encoding agar dapat digunakan oleh model klasifikasi.
-
+Setelah encoding, nama kolom hasil One-Hot Encoding diubah (rename) untuk menyederhanakan dan memperjelas nama fitur, misalnya ```Soil_Acidic Soil``` menjadi ```Acidic_Soil```.
+Selain itu, target ```Crop``` juga dikodekan menggunakan Label Encoding agar bisa diproses oleh algoritma klasifikasi.
 **2. Penanganan Outlier:**
-Outlier terdeteksi menggunakan metode IQR (Interquartile Range). Nilai-nilai yang berada di luar rentang ```Q1 - 1.5IQR dan Q3 + 1.5IQR``` dianggap sebagai outlier. Untuk menjaga integritas data, dilakukan teknik clipping agar nilai ekstrim tetap dalam batas wajar tanpa menghapus data.
+Outlier terdeteksi menggunakan metode IQR (Interquartile Range). Nilai-nilai yang berada di luar rentang ```Q1 - 1.5IQR dan Q3 + 1.5IQR``` dianggap sebagai outlier. Untuk menjaga integritas data, dilakukan teknik *clipping* agar nilai ekstrim tetap dalam batas wajar tanpa menghapus data.
 
 **3. Normalisasi Data:**
-Seluruh fitur numerik (termasuk hasil encoding) dinormalisasi menggunakan StandardScaler dari Scikit-Learn untuk menyamakan skala dan mempercepat konvergensi model pembelajaran mesin.
+Seluruh fitur numerik (termasuk hasil encoding) dinormalisasi menggunakan ```StandardScaler``` dari Scikit-Learn untuk menyamakan skala dan mempercepat konvergensi model pembelajaran mesin.
 
 **4. Pemeriksaan Missing Value dan Duplikasi:**
 Dataset diperiksa dengan ```.isnull().sum()``` dan ```.duplicated()``` untuk memastikan tidak ada data kosong atau duplikat.
