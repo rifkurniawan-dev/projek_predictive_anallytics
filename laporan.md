@@ -35,15 +35,6 @@ Sektor pertanian perlu menjadi lebih efisien dan berkelanjutan untuk menghadapi 
 ## Data Understanding
 Dataset yang digunakan berasal dari Kaggle (https://www.kaggle.com/datasets/nishchalchandel/crop-recommendation), terdiri dari 3100 baris dan 10 kolom. Dataset ini mencakup berbagai parameter penting untuk menentukan jenis tanaman yang optimal berdasarkan kondisi lingkungan.
 
-Berikut informasi pada tampilan dataset: 
-
-	Temperature Humidity	Rainfall	PH	Nitrogen	Phosphorous	Potassium	Carbon	Soil	Crop
-0	20.88	82.00	202.94	6.50	69.30	79.50	94.44	0.63	Loamy Soil	rice
-1	21.77	80.32	226.66	7.04	72.02	141.82	141.70	1.40	Loamy Soil	rice
-2	23.00	82.32	263.96	7.63	77.77	59.39	81.89	1.80	Peaty Soil	rice
-3	26.49	80.28	242.86	6.98	78.65	147.46	142.94	1.43	Loamy Soil	rice
-4	20.28	81.60	262.72	7.63	73.98	68.95	95.74	1.75	Peaty Soil	rice
-
 ### Variabel-variabel pada Kaggle dataset adalah sebagai berikut:
 - Temperature: Suhu udara (°C) yang memengaruhi pertumbuhan tanaman.
 
@@ -64,6 +55,11 @@ Berikut informasi pada tampilan dataset:
 - Soil: Jenis tanah (misal: lempung, pasir), memengaruhi struktur dan drainase.
 
 - Crop: Jenis tanaman yang menjadi target prediksi.
+
+### Univariate Analysis
+![image](https://github.com/user-attachments/assets/d1c88f72-a2b7-47c8-87ed-d2b2c3b89855)
+
+
 
 EDA menunjukkan tidak ada nilai kosong atau data duplikat. Outlier ditangani menggunakan metode IQR, dan visualisasi distribusi fitur menunjukkan sebaran data yang relatif seimbang.
 
