@@ -26,9 +26,12 @@ Sektor pertanian perlu menjadi lebih efisien dan berkelanjutan untuk menghadapi 
 * Meningkatkan efisiensi dalam penggunaan pupuk, air, dan lahan pertanian.
 
 ### Solution statements
-* Membangun model klasifikasi menggunakan algoritma Random Forest.
-
-* Melakukan evaluasi kinerja model menggunakan metrik akurasi, presisi, recall, dan F1-score.
+* Menganalisis data dengan melakukan analisis univariat dan analisis multivariat. Memahami data juga dapat dilakukan dengan visualisasi. Memahami data dapat membantu untuk mengetahui kolerasi matriks antar fitur dan mendeteksi outlier.
+* Melakukan proses pembersihan data dan normalisai data agar mendapat prediksi yang baik.
+* Membuat beberapa variasi model untuk mendapatkan model yang paling baik dari beberapa model yang telah dibuat untuk prediksi kualitas apel. Diantaranya adalah menggunakan:
+ 1. K-Nearest Neighbor (KNN) adalah algoritma sederhana yang mengklasifikasikan data atau kasus baru berdasarkan ukuran kesamaan. Hal ini sebagian besar digunakan untuk mengklasifikasikan titik data berdasarkan tetangga terdekatnya sebagai acuan.
+ 2. Random Forest adalah algoritma machine learning yang kuat yang dapat digunakan untuk berbagai tugas termasuk regresi dan klasifikasi. Ini adalah metode ensemble, yang berarti bahwa model random forest terdiri dari banyak decision tree kecil, yang disebut estimator, yang masing-masing menghasilkan prediksi mereka sendiri. Random forest menggabungkan prediksi estimator untuk menghasilkan prediksi yang lebih akurat .
+ 3. Naive Bayes adalah model machine learning probabilistik yang digunakan untuk tugas klasifikasi. Inti dari classifier ini didasarkan pada teorema Bayes.
 ## Data Understanding
 Dataset yang digunakan berasal dari Kaggle (https://www.kaggle.com/datasets/nishchalchandel/crop-recommendation), terdiri dari 3100 baris dan 10 kolom. Dataset ini mencakup berbagai parameter penting untuk menentukan jenis tanaman yang optimal berdasarkan kondisi lingkungan.
 
