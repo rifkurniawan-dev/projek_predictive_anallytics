@@ -60,7 +60,6 @@ Dataset yang digunakan berasal dari Kaggle (https://www.kaggle.com/datasets/nish
 Gambar 1a. Analisis Univariat (Data Kategori)
 ![image](https://github.com/user-attachments/assets/d1c88f72-a2b7-47c8-87ed-d2b2c3b89855)
 
-![image](https://github.com/user-attachments/assets/1b1305f1-f858-4539-9420-e0330512b525)
 
 
 **Berdasarkan Gambar 1a**, dapat dilihat bahwa distribusi data pada dataset klasifikasi tanaman terdiri dari variabel numerik dan kategorikal yang memiliki karakteristik sebagai berikut:
