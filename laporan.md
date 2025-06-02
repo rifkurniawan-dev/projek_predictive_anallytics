@@ -238,6 +238,7 @@ Dilihat dari Gambar 3. Visualisasi Akurasi Model, dapat diketahui bahwa ketiga a
 Namun, untuk keperluan implementasi model yang lebih efisien dan mudah dikembangkan, pada proyek ini dipilih model dengan algoritma K-Nearest Neighbors (KNN) sebagai model terbaik. Alasan pemilihan KNN adalah karena algoritma ini memiliki konsep yang sederhana, mudah dipahami, dan tidak memerlukan banyak parameter untuk dioptimalkan. Dibandingkan dengan algoritma seperti Random Forest yang kompleks dan memerlukan waktu pelatihan lebih lama, KNN lebih ringan dan praktis untuk diterapkan terutama dalam proyek berskala kecil hingga menengah.
 
 Diharapkan dengan penggunaan model KNN ini, sistem yang dikembangkan mampu memberikan hasil prediksi yang akurat serta mudah untuk dikembangkan dan diintegrasikan dalam sistem klasifikasi yang dibutuhkan.
+
 ## Referensi 
 - Food and Agriculture Organization. (2023). The State of Food and Agriculture 2023: Leveraging automation in agriculture for   transforming agrifood systems. https://www.fao.org
 
