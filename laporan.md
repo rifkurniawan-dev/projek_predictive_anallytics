@@ -117,11 +117,32 @@ Untuk model machine learning yang sensitif terhadap skala (seperti KNN atau SVM)
 
 * **Z-Score Standardization:** Mengubah data menjadi distribusi dengan rata-rata 0 dan standar deviasi 1.
 
+## Analisis Multivariat**
+![image](https://github.com/user-attachments/assets/dc961b24-0358-4015-8404-b5312df3cd74)
+**Gambar 2a. Analisis Multivariat**
 
+![image](https://github.com/user-attachments/assets/294af004-d487-4aa4-88fe-a604a2cc9beb)
 
-EDA menunjukkan tidak ada nilai kosong atau data duplikat. Outlier ditangani menggunakan metode IQR, dan visualisasi distribusi fitur menunjukkan sebaran data yang relatif seimbang.
+Gambar 2b. Analisis Matriks Korelasi
+Berdasarkan Gambar 2a yang menunjukkan Matriks Korelasi antar fitur numerik, dapat diketahui bahwa sebagian besar fitur memiliki korelasi yang rendah hingga sedang satu sama lain. Korelasi tertinggi terlihat antara Nitrogen dan Rainfall (0.87) serta Phosphorous dan Potassium (0.81), yang menunjukkan hubungan linier yang kuat positif — artinya, ketika nilai Nitrogen atau Phosphorous meningkat, nilai Rainfall dan Potassium cenderung ikut meningkat. Selain itu, PH juga menunjukkan korelasi sedang dengan Phosphorous (0.48) dan Potassium (0.42). Di sisi lain, fitur seperti Carbon dan Temperature memiliki korelasi yang sangat rendah terhadap fitur lainnya, menunjukkan bahwa variabel-variabel ini relatif independen. Korelasi rendah ini mengindikasikan bahwa sebagian besar fitur memberikan informasi unik, yang baik untuk proses pembelajaran model karena dapat mengurangi kemungkinan multikolinearitas.
 
 ## Data Preparation
+Dalam tahap persiapan data, terdapat beberapa aktivitas utama yang meliputi pengumpulan data (Data Gathering), evaluasi data (Data Assessing), serta pembersihan data (Data Cleaning). Pada tahap pengumpulan data, proses impor dilakukan dengan penyesuaian agar data dapat diolah dengan optimal dalam bentuk DataFrame menggunakan Pandas. Sedangkan pada tahap penilaian data, dilakukan beberapa pengecekan penting untuk memastikan kualitas data sebelum digunakan dalam proses analisis lebih lanjut.
+
+* Memeriksa adanya data duplikat (baris yang sama persis).
+
+* Mengecek nilai yang hilang (missing values) dalam dataset.
+
+* Mengidentifikasi outlier atau nilai-nilai yang menyimpang jauh dari pola umum data.
+
+Pada proses Data Cleaning yang dilakukan adalah seperti: 
+* Mengonversi tipe data kolom agar sesuai dengan kebutuhan analisis (misalnya dari string ke numerik).
+
+* Melakukan train-test split, yaitu membagi dataset menjadi data latih dan data uji.
+
+* Menerapkan normalisasi, yaitu menyesuaikan skala fitur agar memiliki rentang nilai yang sebanding, guna meningkatkan performa model machine learning.
+
+
 **1. Encoding Data Kategorikal:**
 * Fitur ```Soil``` dikonversi menjadi variabel dummy menggunakan One-Hot Encoding karena termasuk kategori nominal.
 Setelah encoding, nama kolom hasil One-Hot Encoding diubah (rename) untuk menyederhanakan dan memperjelas nama fitur, misalnya ```Soil_Acidic Soil``` menjadi ```Acidic_Soil```.
