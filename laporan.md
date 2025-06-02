@@ -26,12 +26,12 @@ Sektor pertanian perlu menjadi lebih efisien dan berkelanjutan untuk menghadapi 
 * Meningkatkan efisiensi dalam penggunaan pupuk, air, dan lahan pertanian.
 
 ### Solution statements
-* Menganalisis data dengan melakukan analisis univariat dan analisis multivariat. Memahami data juga dapat dilakukan dengan visualisasi. Memahami data dapat membantu untuk mengetahui kolerasi matriks antar fitur dan mendeteksi outlier.
+* Menganalisis data dengan melakukan analisis univariat dan analisis multivariat. Memahami data juga dapat dilakukan dengan visualisasi. Memahami data dapat membantu untuk mengetahui kolerasi matriks antar fitur dan mendeteksi outlier 
 * Melakukan proses pembersihan data dan normalisai data agar mendapat prediksi yang baik.
 * Membuat beberapa variasi model untuk mendapatkan model yang paling baik dari beberapa model yang telah dibuat untuk prediksi kualitas apel. Diantaranya adalah menggunakan:
- 1. K-Nearest Neighbor (KNN) adalah algoritma sederhana yang mengklasifikasikan data atau kasus baru berdasarkan ukuran kesamaan. Hal ini sebagian besar digunakan untuk mengklasifikasikan titik data berdasarkan tetangga terdekatnya sebagai acuan.
- 2. Random Forest adalah algoritma machine learning yang kuat yang dapat digunakan untuk berbagai tugas termasuk regresi dan klasifikasi. Ini adalah metode ensemble, yang berarti bahwa model random forest terdiri dari banyak decision tree kecil, yang disebut estimator, yang masing-masing menghasilkan prediksi mereka sendiri. Random forest menggabungkan prediksi estimator untuk menghasilkan prediksi yang lebih akurat .
- 3. Naive Bayes adalah model machine learning probabilistik yang digunakan untuk tugas klasifikasi. Inti dari classifier ini didasarkan pada teorema Bayes.
+ 1. K-Nearest Neighbor (KNN) adalah algoritma sederhana yang mengklasifikasikan data atau kasus baru berdasarkan ukuran kesamaan. Hal ini sebagian besar digunakan untuk mengklasifikasikan titik data berdasarkan tetangga terdekatnya sebagai acuan (Subramanian, D. 2019).
+ 2. Random Forest adalah algoritma machine learning yang kuat yang dapat digunakan untuk berbagai tugas termasuk regresi dan klasifikasi. Ini adalah metode ensemble, yang berarti bahwa model random forest terdiri dari banyak decision tree kecil, yang disebut estimator, yang masing-masing menghasilkan prediksi mereka sendiri. Random forest menggabungkan prediksi estimator untuk menghasilkan prediksi yang lebih akurat  (Wood, n.d.). .
+ 3. Naive Bayes adalah model machine learning probabilistik yang digunakan untuk tugas klasifikasi. Inti dari classifier ini didasarkan pada teorema Bayes (Gandhi, R. 2018).
 ## Data Understanding
 Dataset yang digunakan berasal dari Kaggle (https://www.kaggle.com/datasets/nishchalchandel/crop-recommendation), terdiri dari 3100 baris dan 10 kolom. Dataset ini mencakup berbagai parameter penting untuk menentukan jenis tanaman yang optimal berdasarkan kondisi lingkungan.
 
@@ -148,92 +148,96 @@ di mana Q1 adalah kuartil pertama dan Q3 adalah kuartil ketiga. Setelah proses i
 
 
 ## Modeling
-**Model yang Digunakan:** Random Forest Classifier
+**1. K-Nearest Neighbors (KNN)**
+KNN adalah salah satu algoritma machine learning yang sederhana namun efektif, digunakan baik untuk klasifikasi maupun regresi. Cara kerjanya adalah dengan mencari sejumlah k data terdekat dari data yang ingin diprediksi, lalu menentukan kelas berdasarkan mayoritas label tetangga terdekat tersebut. Dalam proyek ini digunakan parameter:
 
-**Alasan Pemilihan:**
-Random Forest adalah algoritma ensemble learning berbasis pohon keputusan yang menggabungkan banyak pohon (trees) untuk menghasilkan prediksi yang lebih stabil dan akurat. Algoritma ini sangat sesuai untuk data tabular dengan fitur numerik maupun kategorikal, serta memiliki keunggulan dalam:
+* ```n_neighbors=5``` : menetapkan jumlah tetangga terdekat yang digunakan untuk prediksi.
 
-* Menangani klasifikasi multi-kelas secara efisien (dalam kasus ini, 31 jenis tanaman).
+* ```weights='distance'``` : memberi bobot lebih tinggi kepada tetangga yang lebih dekat ke data baru.
 
-* Tahan terhadap overfitting karena teknik bootstrapping dan pembagian fitur acak.
+Kelebihan:
 
-* Menangkap hubungan non-linear antar fitur lingkungan seperti pH, curah hujan, dan unsur hara.
+* Dapat diterapkan pada berbagai jenis masalah klasifikasi dan regresi.
 
-**Arsitektur Model:**
+* Implementasinya cukup mudah dan intuitif.
 
-* Jumlah Pohon (n_estimators):** 500 pohon keputusan dibangun untuk memperkuat kestabilan prediksi.
+Kekurangan:
 
-* **Bootstrapping:** Setiap pohon dilatih pada subset data acak dengan pengembalian.
+* Cukup sensitif terhadap nilai ekstrem (outlier).
 
-* **Pembagian Fitur Acak (max_features='sqrt'):** Untuk memastikan keragaman antar pohon.
+* Membutuhkan sumber daya komputasi yang besar saat menangani data skala besar.
 
-**1.** **Kriteria Pemisahan:** Gini impurity.
+* Menentukan nilai k terbaik memerlukan proses tuning yang tidak sederhana.
 
-**2** **Pengaturan Reproducibility:** random_state=42.
+**2. Random Forest**
+Random Forest merupakan algoritma ensemble yang terdiri dari sekumpulan pohon keputusan yang dibentuk secara acak. Prediksi akhir diperoleh melalui mekanisme voting dari setiap pohon yang dibuat. Dalam proyek ini, parameter yang digunakan adalah:
 
-**Proses Klasifikasi:**
+* ```max_depth=20``` : menentukan batas kedalaman maksimum pohon keputusan.
 
-* Setiap pohon memproses input fitur lingkungan (pH, N, P, suhu, kelembapan, dll).
+Kelebihan:
 
-* Hasil klasifikasi dari semua pohon dikombinasikan melalui voting mayoritas.
+* Memiliki akurasi yang tinggi dalam berbagai kasus.
 
-* Prediksi akhir diberikan berdasarkan hasil voting terbanyak.
+* Tangguh saat menghadapi dataset berdimensi tinggi (banyak fitur).
 
-Selain prediksi, Random Forest juga memberikan skor pentingnya tiap fitur terhadap hasil klasifikasi.
-**Implementasi Kode:**
-  
-         ```
-         from sklearn.ensemble import RandomForestClassifier
+* Lebih tahan terhadap outlier dibanding algoritma lain.
 
-         # Inisialisasi model
-         model = RandomForestClassifier(
-             n_estimators=500,
-             random_state=42,
-             criterion='gini'
-         )
-         
-         # Pelatihan model
-         model.fit(X_train, y_train)
-         
-         # Prediksi
-         y_pred = model.predict(X_test)```
+Kekurangan:
+
+* Risiko overfitting cukup tinggi pada data yang kecil.
+
+* Proses pelatihannya bisa memakan waktu cukup lama.
+
+* Hasil prediksi sulit dijelaskan secara interpretatif.
+
+**3. Naïve Bayes**
+Naïve Bayes adalah algoritma klasifikasi yang menggunakan prinsip probabilitas berdasarkan Teorema Bayes. Algoritma ini mengasumsikan bahwa tiap fitur saling bebas atau tidak saling bergantung. Model ini efektif untuk data dengan distribusi yang sederhana.
+
+Kelebihan:
+
+* Proses pelatihan dan prediksi berlangsung sangat cepat.
+
+* Mudah dipahami dan diimplementasikan.
+
+Kekurangan:
+
+* Asumsi independensi antar fitur sering kali tidak terpenuhi dalam kenyataan.
+
+* Kurang akurat jika terdapat fitur yang bernilai nol.
+
+* Performa menurun saat menangani dataset kompleks.
 
 ## Evaluation
 
-**Metrik Evaluasi:**
-Evaluasi model dilakukan menggunakan accuracy, precision, recall, F1-score, dan confusion matrix.
+Pada tahap evaluasi model, metrik yang digunakan adalah akurasi, yaitu ukuran yang menunjukkan seberapa banyak prediksi model yang benar dibandingkan dengan seluruh jumlah prediksi yang dilakukan. Akurasi dihitung dengan rumus sebagai berikut:
 
-**Hasil Akurasi:**
+Akurasi = (TP + TN) / (TP + TN + FP + FN) × 100%
 
-Model Random Forest mencapai akurasi 96% pada data uji (620 sampel). Ini menunjukkan model mampu mengklasifikasikan jenis tanaman berdasarkan parameter tanah dan iklim dengan sangat baik.
+Penjelasan komponen:
 
-**Confusion Matrix:**
+* TP (True Positive): Jumlah data berlabel positif yang berhasil diprediksi dengan benar sebagai positif.
 
-Visualisasi confusion matrix menunjukkan bahwa sebagian besar kelas tanaman terprediksi dengan benar. Hampir semua kelas memiliki diagonal yang dominan, menandakan prediksi akurat.
+* TN (True Negative): Jumlah data berlabel negatif yang berhasil diprediksi dengan benar sebagai negatif.
 
-**Classification Report:**
+* FP (False Positive): Jumlah data negatif yang secara keliru diprediksi sebagai positif (disebut juga kesalahan tipe I).
 
-Berdasarkan hasil classification report:
+* FN (False Negative): Jumlah data positif yang secara keliru diprediksi sebagai negatif (disebut juga kesalahan tipe II).
 
-* Precision rata-rata (macro avg): 0.97
+Secara sederhana, rumus ini membandingkan jumlah prediksi yang tepat (TP dan TN) dengan total seluruh data yang diuji. Hasil akhirnya dikalikan 100% untuk mendapatkan nilai dalam bentuk persentase, sehingga lebih mudah dipahami sebagai tingkat ketepatan model.
+Berikut hasil akurasi 3 buah model yang dilatih:
+               KNN     Random Forest   Naïve Bayes
+accuracy_score 1.00       1.00          1.00
 
-* Recall rata-rata (macro avg): 0.97
+Tabel 3. Hasil Akurasi
+![image](https://github.com/user-attachments/assets/b0ec3f13-1550-4b72-8176-f9c0bd81b65d)
 
-* F1-score rata-rata (macro avg): 0.96
+Gambar 3. Model Akurasi Visualisasi
 
-**Akurasi total: 0.96**
+Dilihat dari Gambar 3. Visualisasi Akurasi Model, dapat diketahui bahwa ketiga algoritma yang digunakan—K-Nearest Neighbors (KNN), Random Forest, dan Naïve Bayes—memiliki akurasi yang sangat tinggi, yaitu sebesar 100%. Hal ini menunjukkan bahwa ketiga model mampu mengklasifikasikan data dengan sangat baik pada data uji yang digunakan.
 
-Sebagian besar kelas (jenis tanaman) memiliki nilai F1-score ≥ 0.94, menandakan performa klasifikasi yang konsisten di hampir semua kategori tanaman.
+Namun, untuk keperluan implementasi model yang lebih efisien dan mudah dikembangkan, pada proyek ini dipilih model dengan algoritma K-Nearest Neighbors (KNN) sebagai model terbaik. Alasan pemilihan KNN adalah karena algoritma ini memiliki konsep yang sederhana, mudah dipahami, dan tidak memerlukan banyak parameter untuk dioptimalkan. Dibandingkan dengan algoritma seperti Random Forest yang kompleks dan memerlukan waktu pelatihan lebih lama, KNN lebih ringan dan praktis untuk diterapkan terutama dalam proyek berskala kecil hingga menengah.
 
-**Analisis Tambahan:**
-
-Beberapa kelas seperti tanaman ke-21 (index 30) memiliki F1-score sedikit lebih rendah (0.83), menandakan kemungkinan perlu data lebih banyak pada kategori tersebut.
-
-Tidak ada tanda overfitting karena model juga menunjukkan performa baik di data uji.
-
-**Kesimpulan Evaluasi:**
-Model Random Forest menunjukkan performa yang sangat baik, unggul dalam klasifikasi multi-kelas dengan data agrikultur. Model ini cocok digunakan untuk sistem rekomendasi tanaman yang andal.
-
+Diharapkan dengan penggunaan model KNN ini, sistem yang dikembangkan mampu memberikan hasil prediksi yang akurat serta mudah untuk dikembangkan dan diintegrasikan dalam sistem klasifikasi yang dibutuhkan.
 ## Referensi 
 - Food and Agriculture Organization. (2023). The State of Food and Agriculture 2023: Leveraging automation in agriculture for   transforming agrifood systems. https://www.fao.org
 
@@ -242,4 +246,7 @@ Model Random Forest menunjukkan performa yang sangat baik, unggul dalam klasifik
 - World Bank. (2022). Transforming Agriculture for Shared Prosperity and Improved Livelihoods. https://www.worldbank.org
 
 - McKinsey & Company. (2020). Agriculture’s connected future: How technology can yield new growth. https://www.mckinsey.com/industries/agriculture
+- Subramanian, D. (2019). Pengantar Sederhana tentang Algoritma K-Nearest Neighbors. Menuju Ilmu Data. https://towardsdatascience.com/a-simple-introduction-to-k-nearest-neighbors-algorithm-b3519ed98e
+- Gandhi, R. (2018). Pengklasifikasi Naive Bayes. Menuju Ilmu Data. https://towardsdatascience.com/naive-bayes-classifier-81d512f50a7c
+- Wood, T. - Apa itu Random Forest?. DeepAI. https://deepai.org/machine-learning-glossary-and-terms/random-forest
 
