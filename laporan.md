@@ -57,7 +57,66 @@ Dataset yang digunakan berasal dari Kaggle (https://www.kaggle.com/datasets/nish
 - Crop: Jenis tanaman yang menjadi target prediksi.
 
 ### Univariate Analysis
+Gambar 1a. Analisis Univariat (Data Kategori)
 ![image](https://github.com/user-attachments/assets/d1c88f72-a2b7-47c8-87ed-d2b2c3b89855)
+
+![image](https://github.com/user-attachments/assets/1b1305f1-f858-4539-9420-e0330512b525)
+
+
+**Berdasarkan Gambar 1a**, dapat dilihat bahwa distribusi data pada dataset klasifikasi tanaman terdiri dari variabel numerik dan kategorikal yang memiliki karakteristik sebagai berikut:
+
+**1. Variabel Kategorikal**
+* Soil_encoded:
+* Variabel ini merupakan hasil encoding dari jenis tanah. Terlihat bahwa:
+
+* Kategori ```0``` merupakan yang paling dominan, dengan jumlah data lebih dari **1500**.
+
+* Kategori lainnya (1 hingga 4) memiliki jumlah data yang jauh lebih sedikit, berkisar antara kurang dari **100 hingga 600 data.**
+
+Hal ini menunjukkan bahwa jenis tanah dengan label 0 paling sering dijumpai, sementara jenis tanah lainnya tidak tersebar merata. Ketidakseimbangan ini dapat menjadi pertimbangan saat proses pelatihan model, misalnya dengan melakukan penyesuaian bobot (class weighting) atau sampling ulang.
+
+**2. Variabel Numerik**
+
+**Temperature:**
+Data suhu menunjukkan distribusi yang mendekati normal (bell-shaped curve) dengan rentang nilai antara 13 hingga 40°C. Nilai terbanyak berada di kisaran 25–30°C, yang mengindikasikan suhu rata-rata yang optimal bagi pertumbuhan tanaman.
+
+**Humidity:**
+Distribusi kelembaban bersifat multimodal, dengan beberapa puncak. Nilai umum berada di kisaran 60–90%, namun terdapat kelompok data dengan kelembaban sangat rendah (<20%). Ini menunjukkan variasi lingkungan tempat data dikumpulkan sangat beragam.
+
+**Rainfall:**
+Distribusi data curah hujan menunjukkan positif skew (condong ke kanan). Sebagian besar data memiliki curah hujan antara 40–150 mm, dengan nilai maksimum yang melebihi 250 mm. Data ini memperlihatkan bahwa sebagian besar area memiliki curah hujan sedang hingga tinggi.
+
+**pH:**
+Nilai pH tanah berkisar antara 4 hingga 8.5, dengan konsentrasi tertinggi pada pH 6.0–7.0. Ini menandakan bahwa sebagian besar tanah tergolong netral hingga sedikit asam, yang umumnya sesuai untuk sebagian besar jenis tanaman.
+
+**Nitrogen:**
+Sebagian besar nilai nitrogen berkisar antara 55–65 ppm, dengan sebaran yang tidak simetris (negatively skewed). Terdapat beberapa data dengan kadar nitrogen tinggi hingga 80 ppm, yang mungkin berasal dari tanah dengan tingkat pemupukan tinggi.
+
+**Phosphorous:**
+Nilai fosfor dalam tanah menunjukkan distribusi positif skew. Mayoritas data berada di bawah 60 ppm, namun terdapat outlier dengan nilai hingga 135 ppm, yang dapat mempengaruhi analisis jika tidak ditangani dengan baik.
+
+**Potassium:**
+Data potasium memiliki pola distribusi yang mirip dengan fosfor. Nilai umum berada di 45–70 ppm, dan terdapat lonjakan pada nilai maksimal di sekitar 110 ppm, yang mungkin disebabkan oleh praktik pertanian tertentu.
+
+**Carbon:**
+Distribusi karbon terlihat merata (uniform) di seluruh rentang nilai 0.5–2.5%. Ini menandakan bahwa kandungan karbon organik dalam tanah bervariasi secara seimbang dan tidak terpusat pada nilai tertentu.
+
+**3. Normalisasi Data**
+Data numerik pada dataset ini belum dinormalisasi, terlihat dari perbedaan skala antar fitur. Misalnya:
+
+* Temperature dalam derajat Celsius,
+
+* Nutrien seperti nitrogen dan potassium dalam ppm,
+
+* pH dalam skala 0–14,
+
+* dan karbon dalam persen.
+
+Untuk model machine learning yang sensitif terhadap skala (seperti KNN atau SVM), diperlukan normalisasi seperti:
+
+* **Min-Max Scaling:** Mengubah semua nilai ke skala [0,1].
+
+* **Z-Score Standardization:** Mengubah data menjadi distribusi dengan rata-rata 0 dan standar deviasi 1.
 
 
 
