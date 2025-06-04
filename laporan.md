@@ -209,9 +209,10 @@ Penjelasan komponen:
 
 Secara sederhana, rumus ini membandingkan jumlah prediksi yang tepat (TP dan TN) dengan total seluruh data yang diuji. Hasil akhirnya dikalikan 100% untuk mendapatkan nilai dalam bentuk persentase, sehingga lebih mudah dipahami sebagai tingkat ketepatan model.
 Berikut hasil akurasi 2  buah model yang dilatih:
-            Model  Accuracy  Precision  Recall  F1 Score
+
+```            Model  Accuracy  Precision  Recall  F1 Score
 0            KNN      0.75       0.76    0.75      0.74
-1  Random Forest      0.96       0.97    0.96      0.96
+1  Random Forest      0.96       0.97    0.96      0.96```
 
 
 Tabel 3. Hasil Akurasi
