@@ -248,6 +248,5 @@ Dengan demikian, pemilihan model KNN dianggap lebih cocok untuk kebutuhan implem
 
 - McKinsey & Company. (2020). Agriculture’s connected future: How technology can yield new growth. https://www.mckinsey.com/industries/agriculture
 - Subramanian, D. (2019). Pengantar Sederhana tentang Algoritma K-Nearest Neighbors. Menuju Ilmu Data. https://towardsdatascience.com/a-simple-introduction-to-k-nearest-neighbors-algorithm-b3519ed98e
-- Gandhi, R. (2018). Pengklasifikasi Naive Bayes. Menuju Ilmu Data. https://towardsdatascience.com/naive-bayes-classifier-81d512f50a7c
 - Wood, T. - Apa itu Random Forest?. DeepAI. https://deepai.org/machine-learning-glossary-and-terms/random-forest
 
