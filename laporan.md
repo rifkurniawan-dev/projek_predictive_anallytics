@@ -34,7 +34,7 @@ Sektor pertanian perlu menjadi lebih efisien dan berkelanjutan untuk menghadapi 
  3. Naive Bayes adalah model machine learning probabilistik yang digunakan untuk tugas klasifikasi. Inti dari classifier ini didasarkan pada teorema Bayes (Gandhi, R. 2018).
 ## Data Understanding
 Dataset yang digunakan berasal dari Kaggle (https://www.kaggle.com/datasets/nishchalchandel/crop-recommendation), terdiri dari 3100 baris dan 10 kolom. Dataset ini mencakup berbagai parameter penting untuk menentukan jenis tanaman yang optimal berdasarkan kondisi lingkungan.
-
+Selain itu, berdasarkan hasil pemeriksaan di notebook, diketahui bahwa dataset tidak memiliki missing value maupun data duplikat, sehingga tahap pembersihan data tidak diperlukan.
 ### Variabel-variabel pada Kaggle dataset adalah sebagai berikut:
 - Temperature: Suhu udara (°C) yang memengaruhi pertumbuhan tanaman.
 
@@ -145,6 +145,7 @@ Pada proses Data Cleaning yang dilakukan adalah seperti:
 Dalam proyek ini, tidak ditemukan adanya data duplikat, namun terdapat **missing value**. Untuk mengatasinya, digunakan metode **dropping** atau penghapusan baris yang mengandung nilai kosong. Pendekatan ini dipilih karena jumlah nilai yang hilang hanya satu, sehingga tidak berdampak signifikan terhadap keseluruhan data. Sementara itu, penanganan outlier dilakukan menggunakan metode **Interquartile Range (IQR)**, yang dihitung dengan mengurangkan kuartil ketiga (Q3) dengan kuartil pertama (Q1), sesuai dengan rumus:
 ## IQR = Q3 - Q1,
 di mana Q1 adalah kuartil pertama dan Q3 adalah kuartil ketiga. Setelah proses ini, jumlah data berkurang dari 3100 menjadi 3099. Selanjutnya, dataset dibagi menjadi **data latih dan data uji** menggunakan fungsi ```train_test_split``` dari library ```sklearn.model_selection```, dengan ```rasio pembagian 80% data latih dan 20% data uji```, serta ```random_state``` disetel ke 60 untuk menjaga reprodusibilitas. Proyek ini juga menerapkan normalisasi data menggunakan ```MinMaxScaler``` dari ```sklearn.preprocessing```, yang bertujuan untuk menyamakan skala semua fitur. Seluruh tahapan ini dilakukan untuk memastikan bahwa model yang dibangun memiliki performa optimal.
+Selain itu, dilakukan proses Label Encoding pada kolom ```Soil``` dan ```Crop``` untuk mengubah nilai kategorikal menjadi numerik. Setelah proses encoding selesai, kolom asli ```Soil``` dan ```Crop``` dihapus dari dataset untuk menghindari redundansi informasi
 
 
 ## Modeling
