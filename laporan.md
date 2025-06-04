@@ -215,6 +215,8 @@ Berikut hasil akurasi 2  buah model yang dilatih:
 1  Random Forest      0.96       0.97    0.96      0.96```
 
 
+
+
 Tabel 3. Hasil Akurasi
 
 ![image](https://github.com/user-attachments/assets/a952ccf3-67b6-454b-a434-cd6e3711d59f)
