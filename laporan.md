@@ -212,7 +212,7 @@ Berikut hasil akurasi 2  buah model yang dilatih:
 
 ```            Model  Accuracy  Precision  Recall  F1 Score
 0            KNN      0.75       0.76    0.75      0.74
-1  Random Forest      0.96       0.97    0.96      0.96```
+1  Random Forest      0.96       0.97    0.96      0.96
 
 
 
