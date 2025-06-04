@@ -30,8 +30,8 @@ Sektor pertanian perlu menjadi lebih efisien dan berkelanjutan untuk menghadapi 
 * Melakukan proses pembersihan data dan normalisai data agar mendapat prediksi yang baik.
 * Membuat beberapa variasi model untuk mendapatkan model yang paling baik dari beberapa model yang telah dibuat untuk prediksi kualitas apel. Diantaranya adalah menggunakan:
  1. K-Nearest Neighbor (KNN) adalah algoritma sederhana yang mengklasifikasikan data atau kasus baru berdasarkan ukuran kesamaan. Hal ini sebagian besar digunakan untuk mengklasifikasikan titik data berdasarkan tetangga terdekatnya sebagai acuan (Subramanian, D. 2019).
- 2. Random Forest adalah algoritma machine learning yang kuat yang dapat digunakan untuk berbagai tugas termasuk regresi dan klasifikasi. Ini adalah metode ensemble, yang berarti bahwa model random forest terdiri dari banyak decision tree kecil, yang disebut estimator, yang masing-masing menghasilkan prediksi mereka sendiri. Random forest menggabungkan prediksi estimator untuk menghasilkan prediksi yang lebih akurat  (Wood, n.d.). .
- 3. Naive Bayes adalah model machine learning probabilistik yang digunakan untuk tugas klasifikasi. Inti dari classifier ini didasarkan pada teorema Bayes (Gandhi, R. 2018).
+ 2. Random Forest adalah algoritma machine learning yang kuat yang dapat digunakan untuk berbagai tugas termasuk regresi dan klasifikasi. Ini adalah metode ensemble, yang berarti bahwa model random forest terdiri dari banyak decision tree kecil, yang disebut estimator, yang masing-masing menghasilkan prediksi mereka sendiri. Random forest menggabungkan prediksi estimator untuk menghasilkan prediksi yang lebih akurat  (Wood, n.d.). 
+
 ## Data Understanding
 Dataset yang digunakan berasal dari Kaggle (https://www.kaggle.com/datasets/nishchalchandel/crop-recommendation), terdiri dari 3100 baris dan 10 kolom. Dataset ini mencakup berbagai parameter penting untuk menentukan jenis tanaman yang optimal berdasarkan kondisi lingkungan.
 Selain itu, berdasarkan hasil pemeriksaan di notebook, diketahui bahwa dataset tidak memiliki missing value maupun data duplikat, sehingga tahap pembersihan data tidak diperlukan.
@@ -190,22 +190,6 @@ Kekurangan:
 
 * Hasil prediksi sulit dijelaskan secara interpretatif.
 
-**3. Naïve Bayes**
-Naïve Bayes adalah algoritma klasifikasi yang menggunakan prinsip probabilitas berdasarkan Teorema Bayes. Algoritma ini mengasumsikan bahwa tiap fitur saling bebas atau tidak saling bergantung. Model ini efektif untuk data dengan distribusi yang sederhana.
-
-Kelebihan:
-
-* Proses pelatihan dan prediksi berlangsung sangat cepat.
-
-* Mudah dipahami dan diimplementasikan.
-
-Kekurangan:
-
-* Asumsi independensi antar fitur sering kali tidak terpenuhi dalam kenyataan.
-
-* Kurang akurat jika terdapat fitur yang bernilai nol.
-
-* Performa menurun saat menangani dataset kompleks.
 
 ## Evaluation
 
@@ -224,20 +208,29 @@ Penjelasan komponen:
 * FN (False Negative): Jumlah data positif yang secara keliru diprediksi sebagai negatif (disebut juga kesalahan tipe II).
 
 Secara sederhana, rumus ini membandingkan jumlah prediksi yang tepat (TP dan TN) dengan total seluruh data yang diuji. Hasil akhirnya dikalikan 100% untuk mendapatkan nilai dalam bentuk persentase, sehingga lebih mudah dipahami sebagai tingkat ketepatan model.
-Berikut hasil akurasi 3 buah model yang dilatih:
-               KNN     Random Forest   Naïve Bayes
-accuracy_score 1.00       1.00          1.00
+Berikut hasil akurasi 2  buah model yang dilatih:
+            Model  Accuracy  Precision  Recall  F1 Score
+0            KNN      0.75       0.76    0.75      0.74
+1  Random Forest      0.96       0.97    0.96      0.96
+
 
 Tabel 3. Hasil Akurasi
-![image](https://github.com/user-attachments/assets/b0ec3f13-1550-4b72-8176-f9c0bd81b65d)
+
+![image](https://github.com/user-attachments/assets/a952ccf3-67b6-454b-a434-cd6e3711d59f)
 
 Gambar 3. Model Akurasi Visualisasi
 
-Dilihat dari Gambar 3. Visualisasi Akurasi Model, dapat diketahui bahwa ketiga algoritma yang digunakan—K-Nearest Neighbors (KNN), Random Forest, dan Naïve Bayes—memiliki akurasi yang sangat tinggi, yaitu sebesar 100%. Hal ini menunjukkan bahwa ketiga model mampu mengklasifikasikan data dengan sangat baik pada data uji yang digunakan.
+Dilihat dari Gambar 3.  Visualisasi Akurasi Model menunjukkan perbandingan akurasi dari dua algoritma yang digunakan, yaitu K-Nearest Neighbors (KNN) dan Random Forest. Dari grafik terlihat bahwa algoritma Random Forest memiliki akurasi lebih tinggi dibandingkan KNN, yaitu sekitar 96%, sementara KNN berada pada kisaran 75%.
 
-Namun, untuk keperluan implementasi model yang lebih efisien dan mudah dikembangkan, pada proyek ini dipilih model dengan algoritma K-Nearest Neighbors (KNN) sebagai model terbaik. Alasan pemilihan KNN adalah karena algoritma ini memiliki konsep yang sederhana, mudah dipahami, dan tidak memerlukan banyak parameter untuk dioptimalkan. Dibandingkan dengan algoritma seperti Random Forest yang kompleks dan memerlukan waktu pelatihan lebih lama, KNN lebih ringan dan praktis untuk diterapkan terutama dalam proyek berskala kecil hingga menengah.
+Meskipun Random Forest menunjukkan performa yang lebih unggul dalam hal akurasi, KNN dipilih sebagai model akhir dalam proyek ini. Keputusan ini didasarkan pada beberapa pertimbangan praktis, antara lain:
 
-Diharapkan dengan penggunaan model KNN ini, sistem yang dikembangkan mampu memberikan hasil prediksi yang akurat serta mudah untuk dikembangkan dan diintegrasikan dalam sistem klasifikasi yang dibutuhkan.
+* Kesederhanaan algoritma: KNN merupakan algoritma yang mudah dipahami dan diimplementasikan.
+
+* Minim tuning parameter: KNN tidak memerlukan banyak proses pemilihan hyperparameter seperti yang umum pada Random Forest.
+
+* Efisiensi dan skalabilitas: Untuk skala data kecil hingga menengah, KNN memberikan efisiensi yang baik tanpa mengorbankan akurasi secara drastis.
+
+Dengan demikian, pemilihan model KNN dianggap lebih cocok untuk kebutuhan implementasi cepat dan pengembangan yang ringan, meskipun secara akurasi sedikit lebih rendah dari Random Forest.
 
 ## Referensi 
 - Food and Agriculture Organization. (2023). The State of Food and Agriculture 2023: Leveraging automation in agriculture for   transforming agrifood systems. https://www.fao.org
