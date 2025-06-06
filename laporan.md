@@ -143,9 +143,9 @@ Pada proses Data Cleaning yang dilakukan adalah seperti:
 * Menerapkan normalisasi, yaitu menyesuaikan skala fitur agar memiliki rentang nilai yang sebanding, guna meningkatkan performa model machine learning.
 
   
-Dalam proyek ini, tidak ditemukan adanya data duplikat maupun missing value berdasarkan hasil pemeriksaan awal menggunakan ```df.duplicated().sum()``` yang menunjukkan bahwa tidak terdapat baris duplikat. Pemeriksaan terhadap missing value juga dilakukan menggunakan ```df.isnull().sum()```dan hasilnya menunjukkan bahwa seluruh fitur memiliki nilai lengkap, sehingga tidak dilakukan proses penghapusan atau imputasi data. Jumlah data tetap sebanyak 3100 baris sebelum dilakukan proses lain. penanganan outlier dilakukan menggunakan metode **Interquartile Range (IQR)**, yang dihitung dengan mengurangkan kuartil ketiga (Q3) dengan kuartil pertama (Q1), sesuai dengan rumus:
+Dalam proyek ini, tidak ditemukan adanya data duplikat maupun missing value berdasarkan hasil pemeriksaan awal menggunakan ```df.duplicated().sum()``` yang menunjukkan bahwa tidak terdapat baris duplikat. Pemeriksaan terhadap missing value juga dilakukan menggunakan ```df.isnull().sum()```dan hasilnya menunjukkan bahwa seluruh fitur memiliki nilai lengkap, sehingga tidak dilakukan proses penghapusan atau imputasi data. jumlah Dataset yang digunakan terdiri dari 3100 baris dan 10 kolom. Jumlah data ini tetap terjaga sebelum dan sesudah penanganan outlier karena metode yang digunakan tidak menghapus baris data. penanganan outlier dilakukan menggunakan metode **Interquartile Range (IQR)**, yang dihitung dengan mengurangkan kuartil ketiga (Q3) dengan kuartil pertama (Q1), sesuai dengan rumus:
 ## IQR = Q3 - Q1,
-di mana Q1 adalah kuartil pertama dan Q3 adalah kuartil ketiga. Setelah proses ini, jumlah data berkurang dari 3100 menjadi 3099. Selanjutnya, dataset dibagi menjadi **data latih dan data uji** menggunakan fungsi ```train_test_split``` dari library ```sklearn.model_selection```, dengan ```rasio pembagian 80% data latih dan 20% data uji```, serta ```random_state``` disetel ke 60 untuk menjaga reprodusibilitas. Proyek ini juga menerapkan normalisasi data menggunakan ```MinMaxScaler``` dari ```sklearn.preprocessing```, yang bertujuan untuk menyamakan skala semua fitur. Seluruh tahapan ini dilakukan untuk memastikan bahwa model yang dibangun memiliki performa optimal.
+di mana Q1 merupakan kuartil pertama dan Q3 merupakan kuartil ketiga. Dengan menggunakan nilai IQR ini, batas bawah dan batas atas untuk deteksi outlier dapat ditentukan. Setelah melakukan proses penanganan outlier, jumlah data tetap sebanyak 3100 baris, karena nilai-nilai yang dianggap outlier tidak dihapus melainkan disesuaikan agar berada dalam batas yang telah ditentukan. Selanjutnya, dataset dibagi menjadi **data latih dan data uji** menggunakan fungsi ```train_test_split``` dari library ```sklearn.model_selection```, dengan ```rasio pembagian 80% data latih dan 20% data uji```, serta ```random_state``` disetel ke 60 untuk menjaga reprodusibilitas. Proyek ini juga menerapkan normalisasi data menggunakan ```MinMaxScaler``` dari ```sklearn.preprocessing```, yang bertujuan untuk menyamakan skala semua fitur. Seluruh tahapan ini dilakukan untuk memastikan bahwa model yang dibangun memiliki performa optimal.
 Selain itu, dilakukan proses Label Encoding pada kolom ```Soil``` dan ```Crop``` untuk mengubah nilai kategorikal menjadi numerik. Setelah proses encoding selesai, kolom asli ```Soil``` dan ```Crop``` dihapus dari dataset untuk menghindari redundansi informasi
 
 
@@ -174,7 +174,7 @@ Kekurangan:
 **2. Random Forest**
 Random Forest merupakan algoritma ensemble yang terdiri dari sekumpulan pohon keputusan yang dibentuk secara acak. Prediksi akhir diperoleh melalui mekanisme voting dari setiap pohon yang dibuat. Dalam proyek ini, parameter yang digunakan adalah:
 
-* ```max_depth=20``` : menentukan batas kedalaman maksimum pohon keputusan.
+* ```max_depth=42``` : menentukan batas kedalaman maksimum pohon keputusan.
 
 Kelebihan:
 
@@ -229,17 +229,18 @@ Tabel 3. Hasil Akurasi
 
 Gambar 3. Model Akurasi Visualisasi
 
-Dilihat dari Gambar 3.  Visualisasi Akurasi Model menunjukkan perbandingan akurasi dari dua algoritma yang digunakan, yaitu K-Nearest Neighbors (KNN) dan Random Forest. Dari grafik terlihat bahwa algoritma Random Forest memiliki akurasi lebih tinggi dibandingkan KNN, yaitu sekitar 96%, sementara KNN berada pada kisaran 75%.
+Dilihat dari Gambar 3.  visualisasi akurasi model menunjukkan perbandingan performa antara dua algoritma yang digunakan, yaitu K-Nearest Neighbors (KNN) dan Random Forest. Terlihat bahwa Random Forest memiliki akurasi lebih tinggi, sekitar 96%, sedangkan KNN berada di kisaran 75%.
 
-Meskipun Random Forest menunjukkan performa yang lebih unggul dalam hal akurasi, KNN dipilih sebagai model akhir dalam proyek ini. Keputusan ini didasarkan pada beberapa pertimbangan praktis, antara lain:
+Meskipun Random Forest menunjukkan akurasi yang lebih unggul, KNN dipilih sebagai model akhir dalam proyek ini karena beberapa pertimbangan praktis:
 
-* Kesederhanaan algoritma: KNN merupakan algoritma yang mudah dipahami dan diimplementasikan.
+* KNN merupakan algoritma yang sederhana dan mudah dipahami, sehingga memudahkan implementasi dan pengembangan.
 
-* Minim tuning parameter: KNN tidak memerlukan banyak proses pemilihan hyperparameter seperti yang umum pada Random Forest.
+* KNN memerlukan sedikit tuning parameter dibandingkan Random Forest yang biasanya membutuhkan proses hyperparameter tuning yang kompleks.
 
-* Efisiensi dan skalabilitas: Untuk skala data kecil hingga menengah, KNN memberikan efisiensi yang baik tanpa mengorbankan akurasi secara drastis.
+* Untuk skala data kecil hingga menengah seperti pada proyek ini, KNN cukup efisien dan memberikan hasil yang memadai.
 
-Dengan demikian, pemilihan model KNN dianggap lebih cocok untuk kebutuhan implementasi cepat dan pengembangan yang ringan, meskipun secara akurasi sedikit lebih rendah dari Random Forest.
+Dengan menggunakan model KNN, sistem rekomendasi tanaman dapat membantu petani dalam membuat keputusan berbasis data yang lebih objektif dan akurat, mengurangi ketergantungan pada intuisi atau pengalaman subjektif. Meskipun akurasi KNN sedikit lebih rendah, model ini tetap dapat memberikan rekomendasi yang relevan dan berguna dalam meningkatkan hasil pertanian secara konsisten. Oleh karena itu, KNN dianggap lebih sesuai untuk kebutuhan implementasi cepat dan pengembangan ringan dalam proyek ini.
+
 
 ## Referensi 
 - Food and Agriculture Organization. (2023). The State of Food and Agriculture 2023: Leveraging automation in agriculture for   transforming agrifood systems. https://www.fao.org
