@@ -133,20 +133,20 @@ Dalam tahap persiapan data, terdapat beberapa aktivitas utama yang meliputi peng
 
 * Mengecek nilai yang hilang (missing values) dalam dataset.
 
-* Mengidentifikasi outlier atau nilai-nilai yang menyimpang jauh dari pola umum data.
-
 Pada proses Data Cleaning yang dilakukan adalah seperti: 
+
 * Mengonversi tipe data kolom agar sesuai dengan kebutuhan analisis (misalnya dari string ke numerik).
+
+* Mengidentifikasi outlier atau nilai-nilai yang menyimpang jauh dari pola umum data.
 
 * Melakukan train-test split, yaitu membagi dataset menjadi data latih dan data uji.
 
 * Menerapkan normalisasi, yaitu menyesuaikan skala fitur agar memiliki rentang nilai yang sebanding, guna meningkatkan performa model machine learning.
 
   
-Dalam proyek ini, tidak ditemukan adanya data duplikat maupun missing value berdasarkan hasil pemeriksaan awal menggunakan ```df.duplicated().sum()``` yang menunjukkan bahwa tidak terdapat baris duplikat. Pemeriksaan terhadap missing value juga dilakukan menggunakan ```df.isnull().sum()```dan hasilnya menunjukkan bahwa seluruh fitur memiliki nilai lengkap, sehingga tidak dilakukan proses penghapusan atau imputasi data. jumlah Dataset yang digunakan terdiri dari 3100 baris dan 10 kolom. Jumlah data ini tetap terjaga sebelum dan sesudah penanganan outlier karena metode yang digunakan tidak menghapus baris data. penanganan outlier dilakukan menggunakan metode **Interquartile Range (IQR)**, yang dihitung dengan mengurangkan kuartil ketiga (Q3) dengan kuartil pertama (Q1), sesuai dengan rumus:
+Dalam proyek ini, tidak ditemukan adanya data duplikat maupun missing value berdasarkan hasil pemeriksaan awal menggunakan ```df.duplicated().sum()``` yang menunjukkan bahwa tidak terdapat baris duplikat. Pemeriksaan terhadap missing value juga dilakukan menggunakan ```df.isnull().sum()```dan hasilnya menunjukkan bahwa seluruh fitur memiliki nilai lengkap, sehingga tidak dilakukan proses penghapusan atau imputasi data. jumlah Dataset yang digunakan terdiri dari 3100 baris dan 10 kolom. Sebelum menangani outlier, perlu dilakukan proses Label Encoding pada kolom ```Soil``` dan ```Crop``` untuk mengubah nilai kategorikal menjadi numerik. Setelah proses encoding selesai, kolom asli ```Soil``` dan ```Crop``` dihapus dari dataset untuk menghindari redundansi informasi. Jumlah data ini tetap terjaga sebelum dan sesudah penanganan outlier karena metode yang digunakan tidak menghapus baris data. penanganan outlier dilakukan menggunakan metode **Interquartile Range (IQR)**, yang dihitung dengan mengurangkan kuartil ketiga (Q3) dengan kuartil pertama (Q1), sesuai dengan rumus:
 ## IQR = Q3 - Q1,
 di mana Q1 merupakan kuartil pertama dan Q3 merupakan kuartil ketiga. Dengan menggunakan nilai IQR ini, batas bawah dan batas atas untuk deteksi outlier dapat ditentukan. Setelah melakukan proses penanganan outlier, jumlah data tetap sebanyak 3100 baris, karena nilai-nilai yang dianggap outlier tidak dihapus melainkan disesuaikan agar berada dalam batas yang telah ditentukan. Selanjutnya, dataset dibagi menjadi **data latih dan data uji** menggunakan fungsi ```train_test_split``` dari library ```sklearn.model_selection```, dengan ```rasio pembagian 80% data latih dan 20% data uji```, serta ```random_state``` disetel ke 42 untuk menjaga reprodusibilitas. Proyek ini juga menerapkan normalisasi data menggunakan ```MinMaxScaler``` dari ```sklearn.preprocessing```, yang bertujuan untuk menyamakan skala semua fitur. Seluruh tahapan ini dilakukan untuk memastikan bahwa model yang dibangun memiliki performa optimal.
-Selain itu, dilakukan proses Label Encoding pada kolom ```Soil``` dan ```Crop``` untuk mengubah nilai kategorikal menjadi numerik. Setelah proses encoding selesai, kolom asli ```Soil``` dan ```Crop``` dihapus dari dataset untuk menghindari redundansi informasi
 
 
 ## Modeling
@@ -216,9 +216,9 @@ Berikut hasil akurasi 2  buah model yang dilatih:
 ----------------------------------------------------------------------
          Model        Accuracy    Precision    Recall      F1 Score
 ----------------------------------------------------------------------
-0.             KNN         0.75        0.76        0.75          0.74
+0.             KNN         0.75        0.75        0.75          0.73
 -----------------------------------------------------------------------
-1.     Random Forest        0.96        0.97        0.96           0.96
+1.     Random Forest        0.96        0.96        0.96           0.96
 ------------------------------------------------------------------------
 
 
