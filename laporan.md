@@ -175,6 +175,7 @@ Kekurangan:
 Random Forest merupakan algoritma ensemble yang terdiri dari sekumpulan pohon keputusan yang dibentuk secara acak. Prediksi akhir diperoleh melalui mekanisme voting dari setiap pohon yang dibuat. Dalam proyek ini, parameter yang digunakan adalah:
 
 * ```max_depth=42``` : menentukan batas kedalaman maksimum pohon keputusan.
+* ```random_state=42``` : memastikan konsistensi hasil ketika model dijalankan berulang kali.
 
 Kelebihan:
 
